@@ -1,6 +1,8 @@
 package com.ehr.controller;
 
+import com.ehr.model.LoginHistory;
 import com.ehr.model.User;
+import com.ehr.repository.LoginHistoryRepository;
 import com.ehr.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -62,6 +64,9 @@ public class LoginController {
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByUserName(auth.getName());
+        LoginHistory loginHistory = userService.findLoginHistoryByUserId(user.getId());
+        userService.saveLoginHistory(user);
+        modelAndView.addObject("loginHistory", loginHistory);
         modelAndView.addObject("userName", "Welcome " + user.getUserName() + "/" + user.getName() + " " + user.getLastName() + " (" + user.getEmail() + ")");
         modelAndView.addObject("adminMessage","Content Available Only for Users with Admin Role");
         modelAndView.setViewName("admin/home");
