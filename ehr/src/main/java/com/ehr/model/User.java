@@ -52,6 +52,12 @@ public class User {
     @OneToOne(mappedBy = "patient")
     Patient patient = new Patient();
     
+    @OneToOne(mappedBy = "doctor")
+    Doctor doctor = new Doctor();
+    
+    @OneToOne(mappedBy = "hospital")
+    Hospital hospital = new Hospital();
+    
 
     
     public List<LoginHistory> getLoginHistoryArray(){
