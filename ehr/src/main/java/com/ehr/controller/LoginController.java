@@ -2,7 +2,7 @@ package com.ehr.controller;
 
 import com.ehr.model.LoginHistory;
 import com.ehr.model.User;
-import com.ehr.repository.LoginHistoryRepository;
+import com.ehr.service.LoginHistoryService;
 import com.ehr.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.Date;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 @Controller
@@ -20,6 +23,9 @@ public class LoginController {
 
     @Autowired
     private UserService userService;
+    
+    @Autowired
+    private LoginHistoryService loginHistoryService;
 
     @GetMapping(value={"/", "/login"})
     public ModelAndView login(){
@@ -60,12 +66,13 @@ public class LoginController {
     }
 
     @GetMapping(value="/admin/home")
-    public ModelAndView home(){
+    public ModelAndView home(HttpServletRequest request){
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByUserName(auth.getName());
-        LoginHistory loginHistory = userService.findLoginHistoryByUserId(user.getId());
-        userService.saveLoginHistory(user);
+        LoginHistory loginHistory = new LoginHistory(new Date(),request.getRemoteAddr(),request.getHeader("User-Agent"));
+        loginHistory.setUser(user);
+        loginHistoryService.saveLoginHistory(loginHistory);
         modelAndView.addObject("loginHistory", loginHistory);
         modelAndView.addObject("userName", "Welcome " + user.getUserName() + "/" + user.getName() + " " + user.getLastName() + " (" + user.getEmail() + ")");
         modelAndView.addObject("adminMessage","Content Available Only for Users with Admin Role");

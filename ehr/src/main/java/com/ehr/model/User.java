@@ -2,9 +2,15 @@ package com.ehr.model;
 
 import org.hibernate.validator.constraints.Length;
 
+import com.ehr.comparator.LoginHistoryComparator;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -38,6 +44,21 @@ public class User {
     @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
+    
+    
+    @OneToMany(mappedBy = "user")
+    List<LoginHistory> loginHistoryArray = new ArrayList<LoginHistory>();
+    
+    public List<LoginHistory> getLoginHistoryArray(){
+    	return loginHistoryArray;
+    }
+    
+    public String getLastLogin() {
+    	Collections.sort(this.loginHistoryArray,new LoginHistoryComparator());
+    	LoginHistory loginHistory = (loginHistoryArray.size() > 0 )? loginHistoryArray.get(loginHistoryArray.size() - 1):null;
+    	return (loginHistory != null)? loginHistory.getLoginTime() + "from IP " + loginHistory.getLoginIP(): "";
+    }
+    
 	public int getId() {
 		return id;
 	}
