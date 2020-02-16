@@ -61,6 +61,16 @@
                             class="validation-message"></label>
                     </div>
                 </div>
+                
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        <input type="password" th:field="*{repassword}"
+                               placeholder="re-password" class="form-control"/> <label
+                            th:if="${#fields.hasErrors('repassword')}" th:errors="*{repassword}"
+                            class="validation-message"></label>
+                    </div>
+                </div>
+                
 
                 <div class="form-group">
                     <div class="col-sm-9">
