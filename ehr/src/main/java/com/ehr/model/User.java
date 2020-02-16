@@ -49,6 +49,11 @@ public class User {
     @OneToMany(mappedBy = "user")
     List<LoginHistory> loginHistoryArray = new ArrayList<LoginHistory>();
     
+    @OneToOne(mappedBy = "patient")
+    Patient patient = new Patient();
+    
+
+    
     public List<LoginHistory> getLoginHistoryArray(){
     	return loginHistoryArray;
     }
