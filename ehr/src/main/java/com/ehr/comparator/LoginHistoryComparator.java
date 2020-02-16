@@ -6,7 +6,7 @@ import com.ehr.model.LoginHistory;
 
 /**
  * @author Priyank Gajera
- *
+ * comparator for latest login history
  */
 public class LoginHistoryComparator implements Comparator<LoginHistory> {
 
