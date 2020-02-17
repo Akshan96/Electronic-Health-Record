@@ -40,9 +40,38 @@ public class LoginController {
         ModelAndView modelAndView = new ModelAndView();
         User user = new User();
         modelAndView.addObject("user", user);
+        modelAndView.addObject("isDoctor", false);
+        modelAndView.addObject("isHospital",false);
+        modelAndView.addObject("isPatient",true);
         modelAndView.setViewName("registration");
         return modelAndView;
     }
+    
+    @GetMapping(value="/registration/d")
+    public ModelAndView registrationDoctor(){
+        ModelAndView modelAndView = new ModelAndView();
+        User user = new User();
+        modelAndView.addObject("user", user);
+        modelAndView.addObject("isDoctor", true);
+        modelAndView.addObject("isHospital",false);
+        modelAndView.addObject("isPatient",false);
+        modelAndView.setViewName("registration");
+        return modelAndView;
+    }
+    
+    @GetMapping(value="/registration/h")
+    public ModelAndView registrationHospital(){
+        ModelAndView modelAndView = new ModelAndView();
+        User user = new User();
+        modelAndView.addObject("user", user);
+        modelAndView.addObject("isDoctor", false);
+        modelAndView.addObject("isHospital",true);
+        modelAndView.addObject("isPatient",false);
+        modelAndView.setViewName("registration");
+        return modelAndView;
+    }
+    
+    
 
     @PostMapping(value = "/registration")
     public ModelAndView createNewUser(@Valid User user, BindingResult bindingResult) {

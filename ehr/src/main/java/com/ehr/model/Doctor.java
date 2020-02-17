@@ -34,9 +34,6 @@ public class Doctor {
     @Column(name = "experience")
     private String experience;
     
-    
-    
-    
 	@OneToOne
     @JoinColumn(name = "user_id", nullable = true)
     private User doctor;
