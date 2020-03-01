@@ -1,7 +1,9 @@
 package com.ehr.controller;
 
+import com.ehr.model.Doctor;
 import com.ehr.model.LoginHistory;
 import com.ehr.model.User;
+import com.ehr.service.DoctorService;
 import com.ehr.service.LoginHistoryService;
 import com.ehr.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,9 @@ public class LoginController {
     
     @Autowired
     private LoginHistoryService loginHistoryService;
+    
+    @Autowired
+    private DoctorService doctorService;
 
     @GetMapping(value={"/", "/login"})
     public ModelAndView login(){
@@ -55,7 +60,7 @@ public class LoginController {
         modelAndView.addObject("isDoctor", true);
         modelAndView.addObject("isHospital",false);
         modelAndView.addObject("isPatient",false);
-        modelAndView.setViewName("registration");
+        modelAndView.setViewName("doctor/registration");
         return modelAndView;
     }
     
@@ -67,7 +72,7 @@ public class LoginController {
         modelAndView.addObject("isDoctor", false);
         modelAndView.addObject("isHospital",true);
         modelAndView.addObject("isPatient",false);
-        modelAndView.setViewName("registration");
+        modelAndView.setViewName("hospital/registration");
         return modelAndView;
     }
     
@@ -85,7 +90,52 @@ public class LoginController {
         if (bindingResult.hasErrors()) {
             modelAndView.setViewName("registration");
         } else {
-            userService.saveUser(user);
+            userService.saveUser(user,2);
+            modelAndView.addObject("successMessage", "User has been registered successfully");
+            modelAndView.addObject("user", new User());
+            modelAndView.setViewName("registration");
+
+        }
+        return modelAndView;
+    }
+    
+    @PostMapping(value = "/registration/doc")
+    public ModelAndView createNewDoctor(@Valid User user, BindingResult bindingResult) {
+        ModelAndView modelAndView = new ModelAndView();
+        User userExists = userService.findUserByUserName(user.getUserName());
+        if (userExists != null) {
+            bindingResult
+                    .rejectValue("userName", "error.user",
+                            "There is already a user registered with the user name provided");
+        }
+        if (bindingResult.hasErrors()) {
+            modelAndView.setViewName("registration");
+        } else {
+            User createdUser = userService.saveUser(user,3);
+            Doctor doctor = new Doctor();
+            doctor.setDoctor(createdUser);
+            doctorService.saveDoctor(doctor);
+            modelAndView.addObject("successMessage", "Doctor has been registered successfully");
+            modelAndView.addObject("user", new User());
+            modelAndView.setViewName("doctor/registration");
+
+        }
+        return modelAndView;
+    }
+    
+    @PostMapping(value = "/registration/hopsital")
+    public ModelAndView createNewHospital(@Valid User user, BindingResult bindingResult) {
+        ModelAndView modelAndView = new ModelAndView();
+        User userExists = userService.findUserByUserName(user.getUserName());
+        if (userExists != null) {
+            bindingResult
+                    .rejectValue("userName", "error.user",
+                            "There is already a user registered with the user name provided");
+        }
+        if (bindingResult.hasErrors()) {
+            modelAndView.setViewName("registration");
+        } else {
+            userService.saveUser(user,4);
             modelAndView.addObject("successMessage", "User has been registered successfully");
             modelAndView.addObject("user", new User());
             modelAndView.setViewName("registration");
