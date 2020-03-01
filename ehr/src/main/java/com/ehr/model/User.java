@@ -49,13 +49,13 @@ public class User {
     @OneToMany(mappedBy = "user")
     List<LoginHistory> loginHistoryArray = new ArrayList<LoginHistory>();
     
-    @OneToOne(mappedBy = "patient",cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "patient",orphanRemoval = true, cascade = CascadeType.ALL)
     Patient patient = new Patient();
     
-    @OneToOne(mappedBy = "doctor",    orphanRemoval = true,cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "doctor",orphanRemoval = true, cascade = CascadeType.ALL)
     Doctor doctor = new Doctor();
     
-    @OneToOne(mappedBy = "hospital",cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "hospital",orphanRemoval = true, cascade = CascadeType.ALL)
     Hospital hospital = new Hospital();
     
 

@@ -1,9 +1,11 @@
 package com.ehr.controller;
 
 import com.ehr.model.Doctor;
+import com.ehr.model.Hospital;
 import com.ehr.model.LoginHistory;
 import com.ehr.model.User;
 import com.ehr.service.DoctorService;
+import com.ehr.service.HospitalService;
 import com.ehr.service.LoginHistoryService;
 import com.ehr.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +33,9 @@ public class LoginController {
     
     @Autowired
     private DoctorService doctorService;
+    
+    @Autowired
+    private HospitalService hospitalService;
 
     @GetMapping(value={"/", "/login"})
     public ModelAndView login(){
@@ -135,7 +140,10 @@ public class LoginController {
         if (bindingResult.hasErrors()) {
             modelAndView.setViewName("registration");
         } else {
-            userService.saveUser(user,4);
+            User createdUser = userService.saveUser(user,4);
+            Hospital hospital = new Hospital();
+            hospital.setHospital(createdUser);
+            hospitalService.saveHospital(hospital);
             modelAndView.addObject("successMessage", "User has been registered successfully");
             modelAndView.addObject("user", new User());
             modelAndView.setViewName("registration");
@@ -172,6 +180,21 @@ public class LoginController {
         modelAndView.addObject("userName", "Welcome " + user.getUserName() + "/" + user.getName() + " " + user.getLastName() + " (" + user.getEmail() + ")");
         modelAndView.addObject("adminMessage","Content Available Only for Users with Doctor Role");
         modelAndView.setViewName("doctor/home");
+        return modelAndView;
+    }
+    
+    @GetMapping(value="/hospital/home")
+    public ModelAndView hospitalHome(HttpServletRequest request){
+        ModelAndView modelAndView = new ModelAndView();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findUserByUserName(auth.getName());
+        LoginHistory loginHistory = new LoginHistory(new Date(),request.getRemoteAddr(),request.getHeader("User-Agent"));
+        loginHistory.setUser(user);
+        loginHistoryService.saveLoginHistory(loginHistory);
+        modelAndView.addObject("loginHistory", loginHistory);
+        modelAndView.addObject("userName", "Welcome " + user.getUserName() + "/" + user.getName() + " " + user.getLastName() + " (" + user.getEmail() + ")");
+        modelAndView.addObject("adminMessage","Content Available Only for Users with Hospital Role");
+        modelAndView.setViewName("hospital/home");
         return modelAndView;
     }
 
