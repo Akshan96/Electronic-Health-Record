@@ -158,6 +158,22 @@ public class LoginController {
         modelAndView.setViewName("admin/home");
         return modelAndView;
     }
+    
+    
+    @GetMapping(value="/doctor/home")
+    public ModelAndView doctorHome(HttpServletRequest request){
+        ModelAndView modelAndView = new ModelAndView();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findUserByUserName(auth.getName());
+        LoginHistory loginHistory = new LoginHistory(new Date(),request.getRemoteAddr(),request.getHeader("User-Agent"));
+        loginHistory.setUser(user);
+        loginHistoryService.saveLoginHistory(loginHistory);
+        modelAndView.addObject("loginHistory", loginHistory);
+        modelAndView.addObject("userName", "Welcome " + user.getUserName() + "/" + user.getName() + " " + user.getLastName() + " (" + user.getEmail() + ")");
+        modelAndView.addObject("adminMessage","Content Available Only for Users with Doctor Role");
+        modelAndView.setViewName("doctor/home");
+        return modelAndView;
+    }
 
 
 }

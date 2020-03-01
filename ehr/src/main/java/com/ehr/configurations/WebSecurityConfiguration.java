@@ -2,6 +2,7 @@ package com.ehr.configurations;
 
 import com.ehr.service.MyUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -22,6 +23,10 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     private MyUserDetailsService userDetailsService;
 
 
+    @Bean
+    public CustomLoginSuccessHandler myAuthenticationSuccessHandler(){
+        return new CustomLoginSuccessHandler();
+    }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -42,6 +47,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(loginPage).permitAll()
                 .antMatchers("/registration/**").permitAll()
                 .antMatchers("/admin/**").hasAuthority("ADMIN")
+                .antMatchers("/doctor/**").hasAuthority("DOCTOR")
+                .antMatchers("/hospital/**").hasAuthority("HOSPITAL")
                 .anyRequest()
                 .authenticated()
                 .and().csrf().disable()
@@ -49,7 +56,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .loginPage(loginPage)
                 .loginPage("/")
                 .failureUrl("/login?error=true")
-                .defaultSuccessUrl("/admin/home")
+                .successHandler(myAuthenticationSuccessHandler())
                 .usernameParameter("user_name")
                 .passwordParameter("password")
                 .and().logout()
