@@ -13,9 +13,8 @@ public class Patient {
     @Column(name = "patient_id")
     private int patientId;
     
-	@OneToOne
-    @JoinColumn(name = "user_id", nullable = true)
-    private User patient;
+    @Column(name = "userId")
+    private int userId;
     
 	@Column(name = "first_name")
 	private String firstName;
@@ -41,11 +40,11 @@ public class Patient {
 	public Patient() {
 	}
 	
-	public Patient(int patientId, User patient, String firstName, String lastName, Date dob, String permnantAddress,
+	public Patient(int patientId, int userId, String firstName, String lastName, Date dob, String permnantAddress,
 			String residentialAddress, String mobileNumber, String alternateNumber) {
 		super();
 		this.patientId = patientId;
-		this.patient = patient;
+		this.userId = userId;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.dob = dob;
@@ -64,12 +63,12 @@ public class Patient {
 		this.patientId = patientId;
 	}
 
-	public User getPatient() {
-		return patient;
+	public int getUserId() {
+		return userId;
 	}
 
-	public void setPatient(User patient) {
-		this.patient = patient;
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 
 	public String getFirstName() {
@@ -127,9 +126,6 @@ public class Patient {
 	public void setAlternateNumber(String alternateNumber) {
 		this.alternateNumber = alternateNumber;
 	}
-	
-	
-	
 	
 
 }

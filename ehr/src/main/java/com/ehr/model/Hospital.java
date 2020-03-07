@@ -17,7 +17,20 @@ public class Hospital {
     @Column(name = "phoneNumber")
     private String phoneNumber;
     
-    public int getId() {
+    @Column(name = "userId")
+    private int userId;
+    
+    public int getUserId() {
+		return userId;
+	}
+
+
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+
+
+	public int getId() {
 		return id;
 	}
 
@@ -56,24 +69,8 @@ public class Hospital {
 		this.address = address;
 	}
 
-
-	public User getHospital() {
-		return hospital;
-	}
-
-
-	public void setHospital(User hospital) {
-		this.hospital = hospital;
-	}
-
-
 	@Column(name = "address")
     private String address;
-    
-    
-	@OneToOne
-    @JoinColumn(name = "user_id", nullable = true)
-    private User hospital;
     
 
 }

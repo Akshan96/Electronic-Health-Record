@@ -118,7 +118,7 @@ public class LoginController {
         } else {
             User createdUser = userService.saveUser(user,3);
             Doctor doctor = new Doctor();
-            doctor.setDoctor(createdUser);
+            doctor.setUserId(createdUser.getId());
             doctorService.saveDoctor(doctor);
             modelAndView.addObject("successMessage", "Doctor has been registered successfully");
             modelAndView.addObject("user", new User());
@@ -142,7 +142,7 @@ public class LoginController {
         } else {
             User createdUser = userService.saveUser(user,4);
             Hospital hospital = new Hospital();
-            hospital.setHospital(createdUser);
+            hospital.setUserId(createdUser.getId());
             hospitalService.saveHospital(hospital);
             modelAndView.addObject("successMessage", "User has been registered successfully");
             modelAndView.addObject("user", new User());

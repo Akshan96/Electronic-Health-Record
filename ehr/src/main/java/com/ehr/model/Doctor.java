@@ -19,6 +19,9 @@ public class Doctor {
     @Column(name = "lastName")
     private String lastName;
     
+    @Column(name = "userId")
+    private int userId;
+    
     public int getId() {
 		return id;
 	}
@@ -83,12 +86,12 @@ public class Doctor {
 		this.experience = experience;
 	}
 
-	public User getDoctor() {
-		return doctor;
+	public int getUserId() {
+		return userId;
 	}
 
-	public void setDoctor(User doctor) {
-		this.doctor = doctor;
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 
 	@Column(name = "dob")
@@ -105,10 +108,6 @@ public class Doctor {
     
     @Column(name = "experience")
     private String experience;
-    
-	@OneToOne
-    @JoinColumn(name = "user_id", nullable = true)
-    private User doctor;
     
 
 }

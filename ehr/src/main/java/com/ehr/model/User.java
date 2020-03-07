@@ -47,17 +47,7 @@ public class User {
     
     
     @OneToMany(mappedBy = "user")
-    List<LoginHistory> loginHistoryArray = new ArrayList<LoginHistory>();
-    
-    @OneToOne(mappedBy = "patient",orphanRemoval = true, cascade = CascadeType.ALL)
-    Patient patient = new Patient();
-    
-    @OneToOne(mappedBy = "doctor",orphanRemoval = true, cascade = CascadeType.ALL)
-    Doctor doctor = new Doctor();
-    
-    @OneToOne(mappedBy = "hospital",orphanRemoval = true, cascade = CascadeType.ALL)
-    Hospital hospital = new Hospital();
-    
+    List<LoginHistory> loginHistoryArray = new ArrayList<LoginHistory>();    
 
     
     public List<LoginHistory> getLoginHistoryArray(){
