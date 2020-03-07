@@ -13,7 +13,15 @@ public class Doctor {
     @Column(name = "doctor_id")
     private int id;
     
-    @Column(name = "firstName")
+    public boolean isVerified() {
+		return verified;
+	}
+
+	public void setVerified(boolean verified) {
+		this.verified = verified;
+	}
+
+	@Column(name = "firstName")
     private String firstName;
     
     @Column(name = "lastName")
@@ -21,6 +29,9 @@ public class Doctor {
     
     @Column(name = "userId")
     private int userId;
+    
+    @Column(name="verified")
+    private boolean verified = false;
     
     public int getId() {
 		return id;
