@@ -30,7 +30,27 @@ public class Doctor {
     @Column(name = "userId")
     private int userId;
     
-    @Column(name="verified")
+    public Doctor(int id, String firstName, String lastName, int userId, boolean verified, Date dob, String phoneNumber,
+			String address, String speciality, String experience) {
+		super();
+		this.id = id;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.userId = userId;
+		this.verified = verified;
+		this.dob = dob;
+		this.phoneNumber = phoneNumber;
+		this.address = address;
+		this.speciality = speciality;
+		this.experience = experience;
+	}
+
+	public Doctor() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	@Column(name="verified")
     private boolean verified = false;
     
     public int getId() {

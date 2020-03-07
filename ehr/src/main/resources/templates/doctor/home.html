@@ -6,8 +6,12 @@
     <title>Admin Page</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/home.css}"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script th:src="@{/js/common/bootstrap-datepicker.js}"></script>
+    <script th:src="@{/js/doctor.js}"></script>
 </head>
 
 <body>
@@ -23,10 +27,61 @@
         <div class="panel panel-primary">
             <div class="panel-heading">
                 <span th:utext="${userName}"></span>
+                <button class="btn btn-info dtn-sm pull-right" >
+                	<span class="glyphicon glyphicon glyphicon-user" aria-hidden="true"></span>
+                </button>
+        		<div class="clearfix"></div>
             </div>
             <div class="panel-body">
                 <img th:src="@{/images/EHR.png}" class="img-responsive center-block" width="400" height="400"
                      alt="Beer"/>
+
+                     <h3>Profile</span></h3>
+                     <form action="#" th:action="@{/doctor/updateProfile}" th:object="${doctorProfile}" method="post">
+                     <input type="hidden" name="userId" th:value="${doctorProfile.userId}">
+                     <input type="hidden" name="id" th:value="${doctorId}">
+					  <div class="form-group">
+					    <label for="">First Name</label>
+					    <input type="text" class="form-control" th:field="*{firstName}" id="firstName">
+					  </div>
+					  
+					  <div class="form-group">
+					    <label for="">Last Name</label>
+					    <input type="text" class="form-control" th:field="*{lastName}" id="lastName" >
+					  </div>
+					  
+					  <div class="form-group">
+					    <label for="">Speciality</label>
+					    <input type="text" class="form-control" th:field="*{speciality}" id="speciality">
+					  </div>
+					  
+					  <div class="form-group">
+					    <label for="">Experience</label>
+					    <input type="text" class="form-control" th:field="*{experience}" id="experience">
+					  </div>
+					  
+					  <div class="form-group">
+					    <label for="">Address</label>
+					    <input type="text" class="form-control" th:field="*{address}" id="address">
+					  </div>
+					  
+					  <div class="form-group">
+						  <label for="">Date of Birth</label>
+						  <div class="input-group date">
+			                <input type="text" class="form-control" th:field="*{dob}" id="dob">
+			                <div class="input-group-addon">
+			                    <span class="glyphicon glyphicon-th"></span>
+			                </div>
+			              </div>
+					  </div>
+					  
+					  <div class="form-group">
+					    <label for="">Phone Number</label>
+					    <input type="tel" class="form-control" th:field="*{phoneNumber}" id="phoneNumber">
+					  </div>
+					  
+					  <button type="submit" class="btn btn-primary">Submit</button>
+					</form>
             </div>
             <p class="admin-message-text text-center" th:utext="${adminMessage}"></p>
         </div>

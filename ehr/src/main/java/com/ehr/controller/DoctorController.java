@@ -82,7 +82,7 @@ public class DoctorController {
     }
 
 	@GetMapping(value="/doctor/home")
-	public ModelAndView doctorHome(HttpServletRequest request){
+	public ModelAndView doctorHome(HttpServletRequest request, Model model){
 		ModelAndView modelAndView = new ModelAndView();
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		User user = userService.findUserByUserName(auth.getName());
@@ -91,8 +91,39 @@ public class DoctorController {
 		loginHistoryService.saveLoginHistory(loginHistory);
 		modelAndView.addObject("loginHistory", loginHistory);
 		modelAndView.addObject("userName", "Welcome " + user.getUserName() + "/" + user.getName()  + " (" + user.getEmail() + ")");
+		Doctor doctor = doctorService.findByUserId(user.getId());
+		System.out.println(" DOCTOR ID: "+doctor.getId());
+		modelAndView.addObject("doctorId", doctor.getId());
 		modelAndView.addObject("adminMessage","Content Available Only for Users with Doctor Role");
 		modelAndView.setViewName("doctor/home");
+		modelAndView.addObject("doctorProfile", doctor);
 		return modelAndView;
 	}
+	
+//	@GetMapping("/doctor/editProfile/{id}")
+//	public String editDoctorProfile(@PathVariable("id") long id, Model model) {
+//		System.out.println("In edit profile form");
+//		Doctor doctor = doctorService.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+//		model.addAttribute("doctorProfile", doctor);
+//		return "doctor/home";
+//	}
+//	
+	@PostMapping("/doctor/updateProfile")
+	public String updateDoctorProfile(@Valid Doctor doctor) {
+		Doctor doc = new Doctor();
+		doc.setId(doctor.getId());
+		doc.setUserId(doctor.getUserId());
+		doc.setAddress(doctor.getAddress());
+	    doc.setDob(doctor.getDob());
+	    doc.setExperience(doctor.getExperience());
+	    doc.setFirstName(doctor.getFirstName());
+	    doc.setLastName(doctor.getLastName());
+	    doc.setPhoneNumber(doctor.getPhoneNumber());
+	    doc.setSpeciality(doctor.getSpeciality());
+	    doctorService.saveDoctor(doc);
+	    //model.addAttribute("doctors", doctorService.findAll());
+	    return "redirect:/doctor/home";
+	}
+	 
+
 }
