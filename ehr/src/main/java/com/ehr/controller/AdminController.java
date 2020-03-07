@@ -1,6 +1,7 @@
 package com.ehr.controller;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -40,8 +41,9 @@ public class AdminController {
         User user = userService.findUserByUserName(auth.getName());
         LoginHistory loginHistory = new LoginHistory(new Date(),request.getRemoteAddr(),request.getHeader("User-Agent"));
         loginHistory.setUser(user);
+        List<Doctor> doctors = doctorService.getAllDoctor();
         loginHistoryService.saveLoginHistory(loginHistory);
-        modelAndView.addObject("loginHistory", loginHistory);
+        modelAndView.addObject("doctors", doctors);
         modelAndView.addObject("userName", "Welcome " + user.getUserName() + "/" + user.getName() + " (" + user.getEmail() + ")");
         modelAndView.addObject("adminMessage","Content Available Only for Users with Admin Role");
         modelAndView.setViewName("admin/home");
