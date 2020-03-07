@@ -78,20 +78,5 @@ public class LoginController {
         return modelAndView;
     }
 
-    @GetMapping(value="/admin/home")
-    public ModelAndView home(HttpServletRequest request){
-        ModelAndView modelAndView = new ModelAndView();
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = userService.findUserByUserName(auth.getName());
-        LoginHistory loginHistory = new LoginHistory(new Date(),request.getRemoteAddr(),request.getHeader("User-Agent"));
-        loginHistory.setUser(user);
-        loginHistoryService.saveLoginHistory(loginHistory);
-        modelAndView.addObject("loginHistory", loginHistory);
-        modelAndView.addObject("userName", "Welcome " + user.getUserName() + "/" + user.getName() + " (" + user.getEmail() + ")");
-        modelAndView.addObject("adminMessage","Content Available Only for Users with Admin Role");
-        modelAndView.setViewName("admin/home");
-        return modelAndView;
-    }
-
 
 }
