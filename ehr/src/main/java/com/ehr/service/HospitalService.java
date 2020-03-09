@@ -3,9 +3,7 @@ package com.ehr.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ehr.model.Doctor;
 import com.ehr.model.Hospital;
-import com.ehr.repository.DoctorRepository;
 import com.ehr.repository.HospitalRepository;
 
 @Service
@@ -19,5 +17,9 @@ public class HospitalService {
 
 	public void saveHospital(Hospital hospital) {
 		hospitalRepository.save(hospital);
+	}
+
+	public Hospital findByUserId(int user_id) {
+	     return hospitalRepository.findByUserId(user_id);
 	}
 }

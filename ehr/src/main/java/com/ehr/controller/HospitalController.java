@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ehr.model.Doctor;
 import com.ehr.model.Hospital;
 import com.ehr.model.LoginHistory;
 import com.ehr.model.User;
@@ -82,6 +83,22 @@ public class HospitalController {
         modelAndView.addObject("userName", "Welcome " + user.getUserName() + "/" + user.getName() + " (" + user.getEmail() + ")");
         modelAndView.addObject("adminMessage","Content Available Only for Users with Hospital Role");
         modelAndView.setViewName("hospital/home");
+        Hospital hospital = hospitalService.findByUserId(user.getId());
+		System.out.println(" hospital ID: "+hospital.getId());
+		modelAndView.addObject("hospitalId", hospital.getId());
+        modelAndView.addObject("hospitalProfile", hospital);
         return modelAndView;
     }
+    
+    @PostMapping("/hospital/updateProfile")
+	public String updateHospitalProfile(@Valid Hospital hospital) {
+		Hospital h = new Hospital();
+		h.setId(hospital.getId());
+		h.setUserId(hospital.getUserId());
+		h.setAddress(hospital.getAddress());
+	    h.setName(hospital.getName());
+	    h.setPhoneNumber(hospital.getPhoneNumber());
+	    hospitalService.saveHospital(h);
+	    return "redirect:/hospital/home";
+	}
 }
