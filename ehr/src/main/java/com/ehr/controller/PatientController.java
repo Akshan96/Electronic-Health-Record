@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ehr.model.Patient;
+import com.ehr.model.Doctor;
 import com.ehr.model.LoginHistory;
 import com.ehr.model.User;
 import com.ehr.service.PatientService;
@@ -48,6 +49,14 @@ public class PatientController
 		modelAndView.addObject("isPatient",true);
 		modelAndView.setViewName("patient/registration");
 		return modelAndView;
-	} 
+	}
+	
+	@PostMapping(value = "/admin/d/verify")
+	 public String verifyPatient(@Valid Patient patient) {
+			Patient patient1 = patientService.findByUserId(patient.getUserId());
+			patient1.setVerified(true);
+			patientService.savePatient(patient1);
+			return "redirect:/admin/home";  
+	 }
 
 }
