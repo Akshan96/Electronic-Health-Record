@@ -126,6 +126,14 @@ public class Patient {
 	public void setAlternateNumber(String alternateNumber) {
 		this.alternateNumber = alternateNumber;
 	}
+
+	public void setVerified(boolean b) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
+	
 	
 
 }
