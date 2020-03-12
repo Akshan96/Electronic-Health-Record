@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.ehr.model.Doctor;
 import com.ehr.model.Patient;
 import com.ehr.repository.PatientRepository;
 
@@ -30,5 +31,15 @@ public class PatientService {
 	public void savePatient(Patient patinet) {
 		patientRepository.save(patinet);
 	}
+
+	public Patient findByUserId(int userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
+
+	
+	
 	
 }
