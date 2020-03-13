@@ -51,7 +51,7 @@ public class PatientController
 		return modelAndView;
 	}
 	
-	@PostMapping(value = "/admin/d/verify")
+	@PostMapping(value = "/admin/p/verify")
 	 public String verifyPatient(@Valid Patient patient) {
 			Patient patient1 = patientService.findByUserId(patient.getUserId());
 			patient1.setVerified(true);
