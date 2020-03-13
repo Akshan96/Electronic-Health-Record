@@ -58,5 +58,29 @@ public class PatientController
 			patientService.savePatient(patient1);
 			return "redirect:/admin/home";  
 	 }
+	
+	@PostMapping(value = "/registration/patient")
+    public ModelAndView createNewDoctor(@Valid User user, BindingResult bindingResult) {
+        ModelAndView modelAndView = new ModelAndView();
+        User userExists = userService.findUserByUserName(user.getUserName());
+        if (userExists != null) {
+            bindingResult
+                    .rejectValue("userName", "error.user",
+                            "There is already a user registered with the user name provided");
+        }
+        if (bindingResult.hasErrors()) {
+            modelAndView.setViewName("registration");
+        } else {
+            User createdUser = userService.saveUser(user,2);
+            Patient patient = new Patient();
+            patient.setUserId(createdUser.getId());
+            patientService.savePatient(patient);
+            modelAndView.addObject("successMessage", "Patient has been registered successfully");
+            modelAndView.addObject("user", new User());
+            modelAndView.setViewName("patient/registration");
+
+        }
+        return modelAndView;
+    }
 
 }
