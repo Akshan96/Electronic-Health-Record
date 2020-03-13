@@ -34,7 +34,7 @@ public class PatientService {
 
 	public Patient findByUserId(int userId) {
 		// TODO Auto-generated method stub
-		return null;
+		return patientRepository.findByUserId(userId);
 	}
 
 	

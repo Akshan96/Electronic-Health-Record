@@ -81,6 +81,44 @@ public class PatientController
 
         }
         return modelAndView;
+	}
+        
+        @GetMapping(value="/patient/home")
+    	public ModelAndView doctorHome(HttpServletRequest request, Model model){
+    		ModelAndView modelAndView = new ModelAndView();
+    		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    		User user = userService.findUserByUserName(auth.getName());
+    		LoginHistory loginHistory = new LoginHistory(new Date(0),request.getRemoteAddr(),request.getHeader("User-Agent"));
+    		loginHistory.setUser(user);
+    		loginHistoryService.saveLoginHistory(loginHistory);
+    		modelAndView.addObject("loginHistory", loginHistory);
+    		modelAndView.addObject("userName", "Welcome " + user.getUserName() + "/" + user.getName()  + " (" + user.getEmail() + ")");
+    		Patient patient = patientService.findByUserId(user.getId());
+    		System.out.println(" PATIENT ID: "+patient.getId());
+    		modelAndView.addObject("patientId", patient.getId());
+    		modelAndView.addObject("adminMessage","Content Available Only for Users with patient Role");
+    		modelAndView.setViewName("patient/home");
+    		modelAndView.addObject("patientProfile", patient);
+    		return modelAndView;
+    	}
+        
+        @PostMapping("/patient/updateProfile")
+    	public String updatePatientProfile(@Valid Patient patient) {
+    		Patient pat = new Patient();
+    		pat.setId(patient.getId());
+    		pat.setUserId(patient.getUserId());
+    		pat.setAddress(patient.getAddress());
+    	    pat.setDob(patient.getDob());
+    	    pat.setExperience(patient.getExperience());
+    	    pat.setFirstName(patient.getFirstName());
+    	    pat.setLastName(patient.getLastName());
+    	    pat.setPhoneNumber(patient.getPhoneNumber());
+    	    //pat.setSpeciality(patient.getSpeciality());
+    	    patientService.savePatient(pat);
+    	    //model.addAttribute("doctors", doctorService.findAll());
+    	    return "redirect:/doctor/home";
+    	}
+    	
     }
 
-}
+
