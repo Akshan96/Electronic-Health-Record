@@ -18,7 +18,6 @@ public class Patient {
 	}
 
 	public void setVerified(boolean verified) {
-		this.verified = verified;
 	}
     
     @Column(name = "userId")
@@ -33,6 +32,9 @@ public class Patient {
 	@Column(name = "DOB")
 	private Date dob;
 	
+	@Column(name = "gender")
+	private String gender;
+	
 	@Column(name = "permnant_add")
 	private String permnantAddress;
 	
@@ -45,8 +47,6 @@ public class Patient {
 	@Column(name = "alternate_number")
 	private String alternateNumber;
 
-	private Object verified;
-
 	/*public Patient() 
 	{
 	}*/
@@ -56,16 +56,16 @@ public class Patient {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Patient(int id, int userId, String firstName, String lastName, Date dob, String permnantAddress,
+	public Patient(int id, int userId, String firstName, String lastName, Date dob, String gender, String permnantAddress,
 			String residentialAddress, String mobileNumber, String alternateNumber, Object verified) 
 	{
 		super();
 		this.id = id;
 		this.userId = userId;
 		this.firstName = firstName;
-		this.verified = verified;
 		this.lastName = lastName;
 		this.dob = dob;
+		this.gender = gender;
 		this.permnantAddress = permnantAddress;
 		this.residentialAddress = residentialAddress;
 		this.mobileNumber = mobileNumber;
@@ -113,6 +113,15 @@ public class Patient {
 		this.dob = dob;
 	}
 
+	public String getGender()
+	{
+		return gender;
+	}
+	
+	public void setGender(String gender)
+	{
+		this.gender = gender;
+	}
 	public String getPermnantAddress() {
 		return permnantAddress;
 	}

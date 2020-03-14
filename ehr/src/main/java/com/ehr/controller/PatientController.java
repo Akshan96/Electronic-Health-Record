@@ -109,6 +109,7 @@ public class PatientController
     		pat.setUserId(patient.getUserId());
     		pat.setAddress(patient.getAddress());
     	    pat.setDob(patient.getDob());
+    	    pat.setGender(patient.getGender());
     	    pat.setExperience(patient.getExperience());
     	    pat.setFirstName(patient.getFirstName());
     	    pat.setLastName(patient.getLastName());
