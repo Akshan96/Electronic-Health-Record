@@ -38,7 +38,7 @@
 
                      <h3>Profile</span></h3>
                      <form action="#" th:action="@{/patient/updateProfile}" th:object="$patientProfile}" method="post">
-                     <input type="hidden" name="userId" th:value="${doctorProfile.userId}">
+                     <input type="hidden" name="userId" th:value="${patientProfile.userId}">
                      <input type="hidden" name="id" th:value="${doctorId}">
 					  <div class="form-group">
 					    <label for="">First Name</label>
