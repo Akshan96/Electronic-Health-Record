@@ -1,6 +1,7 @@
 package com.ehr.controller;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -9,18 +10,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ehr.model.Doctor;
+import com.ehr.model.EnumPermission;
 import com.ehr.model.Hospital;
 import com.ehr.model.LoginHistory;
+import com.ehr.model.RolePermission;
 import com.ehr.model.User;
 import com.ehr.service.DoctorService;
 import com.ehr.service.HospitalService;
 import com.ehr.service.LoginHistoryService;
+import com.ehr.service.RolePermissionService;
 import com.ehr.service.UserService;
 
 @Controller
@@ -28,6 +35,12 @@ public class HospitalController {
 
 	@Autowired
 	private HospitalService hospitalService;
+	
+	@Autowired
+	private RolePermissionService rolePermissionService;
+	
+	@Autowired
+	private DoctorService doctorService;
 	
     @Autowired
     private LoginHistoryService loginHistoryService;
@@ -45,6 +58,28 @@ public class HospitalController {
         modelAndView.addObject("isPatient",false);
         modelAndView.setViewName("hospital/registration");
         return modelAndView;
+    }
+    
+    
+    @PostMapping(value="hospital/manage/doctor")
+    public String manageDoctor(@ModelAttribute Doctor doctor ,Model model){
+    	
+    	RolePermission permission = rolePermissionService.findByUserId(doctor.getUserId());
+    	if(permission != null) {
+            model.addAttribute("rolePermission",permission);
+    	} else {
+            RolePermission rolePermission = new RolePermission();
+            model.addAttribute("rolePermission",rolePermission);
+    	}
+        model.addAttribute("selectedPermission",EnumPermission.values());
+        return "hospital/managedoctor";
+    }
+    
+    @PostMapping(value = "/save/permission")
+    public String savePermission(@ModelAttribute RolePermission rolePermission) {
+    	System.out.println(rolePermission);
+    	rolePermissionService.savePermission(rolePermission);
+    	return "hospital/managedoctor";
     }
     
     @PostMapping(value = "/registration/hopsital")
@@ -79,7 +114,8 @@ public class HospitalController {
         LoginHistory loginHistory = new LoginHistory(new Date(),request.getRemoteAddr(),request.getHeader("User-Agent"));
         loginHistory.setUser(user);
         loginHistoryService.saveLoginHistory(loginHistory);
-        modelAndView.addObject("loginHistory", loginHistory);
+        List<Doctor> doctors = doctorService.getAllDoctor();
+        modelAndView.addObject("doctors", doctors);
         modelAndView.addObject("userName", "Welcome " + user.getUserName() + "/" + user.getName() + " (" + user.getEmail() + ")");
         modelAndView.addObject("adminMessage","Content Available Only for Users with Hospital Role");
         modelAndView.setViewName("hospital/home");
