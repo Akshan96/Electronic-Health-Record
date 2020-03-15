@@ -11,7 +11,7 @@ public class Patient {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "patient_id")
-    private int id;
+    private int patientid;
     
     public boolean isVerified() {
 		return isVerified();
@@ -29,11 +29,23 @@ public class Patient {
 	@Column(name = "last_name")
 	private String lastName;
 	
+	@Column(name = "spouse name")
+	private String spouseName;
+	
 	@Column(name = "DOB")
 	private Date dob;
 	
+	@Column(name = "registration date")
+	private Date registrationDate;
+	
 	@Column(name = "gender")
 	private String gender;
+	
+	@Column(name = "height")
+    private int height;
+	
+	@Column(name = "weight")
+    private int weight;
 	
 	@Column(name = "permnant_add")
 	private String permnantAddress;
@@ -46,6 +58,12 @@ public class Patient {
 	
 	@Column(name = "alternate_number")
 	private String alternateNumber;
+	
+	@Column(name = "patient_emailID")
+	private String patientEmailId;
+	
+	@Column(name = "insurance Id")
+	private String insuranceId;
 
 	/*public Patient() 
 	{
@@ -56,35 +74,39 @@ public class Patient {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Patient(int id, int userId, String firstName, String lastName, Date dob, String gender, String permnantAddress,
-			String residentialAddress, String mobileNumber, String alternateNumber, Object verified) 
+	public Patient(int patientid, int userId, String firstName, String lastName,String spouseName, Date dob, Date registrationDate, String gender, int height, int weight, String permnantAddress,
+			String residentialAddress, String mobileNumber, String alternateNumber,String patientEmailId, String insuranceId,  Object verified) 
 	{
 		super();
-		this.id = id;
+		this.patientid = patientid;
 		this.userId = userId;
 		this.firstName = firstName;
 		this.lastName = lastName;
+		this.spouseName = spouseName;
 		this.dob = dob;
+		this.registrationDate = registrationDate;
 		this.gender = gender;
+		this.height = height;
+		this.weight=weight;
 		this.permnantAddress = permnantAddress;
 		this.residentialAddress = residentialAddress;
 		this.mobileNumber = mobileNumber;
 		this.alternateNumber = alternateNumber;
+		this.patientEmailId=patientEmailId;
+		this.insuranceId=insuranceId;
 	}
 	
 
 	public int getPatientId() {
-		return id;
+		return patientid;
 	}
-
 	public void setPatientId(int id) {
-		this.id = id;
+		this.patientid = patientid;
 	}
 
 	public int getUserId() {
 		return userId;
 	}
-
 	public void setUserId(int userId) {
 		this.userId = userId;
 	}
@@ -92,7 +114,6 @@ public class Patient {
 	public String getFirstName() {
 		return firstName;
 	}
-
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
@@ -100,32 +121,56 @@ public class Patient {
 	public String getLastName() {
 		return lastName;
 	}
-
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
+	
+	public String getspouseName() {
+		return spouseName;
+	}
+	public void setspouseName(String spouseName) {
+		this.spouseName = spouseName;
+	}
 
+	public Date getregistrationDate() {
+		return registrationDate;
+	}
+	public void setregistrationDate(Date registrationDate) {
+		this.registrationDate = registrationDate;
+	}
+	
 	public Date getDob() {
 		return dob;
 	}
-
 	public void setDob(Date dob) {
 		this.dob = dob;
 	}
 
-	public String getGender()
-	{
+	public String getGender() {
 		return gender;
 	}
-	
 	public void setGender(String gender)
 	{
 		this.gender = gender;
 	}
+	
+	public int getheight() {
+		return height;
+	}
+	public void setheight(int height) {
+		this.height = height;
+	}
+	
+	public int getweight() {
+		return weight;
+	}
+	public void setweight(int weight) {
+		this.weight = weight;
+	}
+	
 	public String getPermnantAddress() {
 		return permnantAddress;
 	}
-
 	public void setPermnantAddress(String permnantAddress) {
 		this.permnantAddress = permnantAddress;
 	}
@@ -133,7 +178,6 @@ public class Patient {
 	public String getResidentialAddress() {
 		return residentialAddress;
 	}
-
 	public void setResidentialAddress(String residentialAddress) {
 		this.residentialAddress = residentialAddress;
 	}
@@ -141,7 +185,6 @@ public class Patient {
 	public String getMobileNumber() {
 		return mobileNumber;
 	}
-
 	public void setMobileNumber(String mobileNumber) {
 		this.mobileNumber = mobileNumber;
 	}
@@ -149,11 +192,24 @@ public class Patient {
 	public String getAlternateNumber() {
 		return alternateNumber;
 	}
-
 	public void setAlternateNumber(String alternateNumber) {
 		this.alternateNumber = alternateNumber;
 	}
-
+	
+	public String getpatientEmailId() {
+		return patientEmailId;
+	}
+	public void setpatientEmailId(String patientEmailId) {
+		this.patientEmailId = patientEmailId;
+	}
+	
+	public String getinsuranceId() {
+		return insuranceId;
+	}
+	public void setgetinsuranceId(String insuranceId) {
+		this.insuranceId = insuranceId;
+	}
+	
 	/*public void setVerified(boolean b) {
 		// TODO Auto-generated method stub
 		
@@ -201,11 +257,12 @@ public class Patient {
 
 	public String getId() {
 		// TODO Auto-generated method stub
-		return null;
+		return null; 
 	}
-
-	
-	
-	
-
 }
+
+	
+	
+	
+
+

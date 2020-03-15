@@ -104,9 +104,7 @@ public class PatientController
         
         @PostMapping("/patient/updateProfile")
     	public String updatePatientProfile(@Valid Patient patient) {
-    		Patient pat = new Patient();
-    		pat.setId(patient.getId());
-    		pat.setUserId(patient.getUserId());
+    		Patient pat = patientService.findByUserId(patient.getUserId());
     		pat.setAddress(patient.getAddress());
     	    pat.setDob(patient.getDob());
     	    pat.setGender(patient.getGender());
@@ -117,7 +115,7 @@ public class PatientController
     	    //pat.setSpeciality(patient.getSpeciality());
     	    patientService.savePatient(pat);
     	    //model.addAttribute("doctors", doctorService.findAll());
-    	    return "redirect:/doctor/home";
+    	    return "redirect:/patient/home";
     	}
     	
     }
