@@ -30,7 +30,7 @@ public class Doctor {
     @Column(name = "userId")
     private int userId;
     
-    public Doctor(int id, String firstName, String lastName, int userId, boolean verified, Date dob, String phoneNumber,
+    public Doctor(int id, String firstName, String lastName, int userId, boolean verified, String dob, String phoneNumber,
 			String address, String speciality, String experience) {
 		super();
 		this.id = id;
@@ -77,12 +77,12 @@ public class Doctor {
 		this.lastName = lastName;
 	}
 
-	public Date getDob() {
+	public String getDob() {
 		return dob;
 	}
 
-	public void setDob(Date dob) {
-		this.dob = dob;
+	public void setDob(String string) {
+		this.dob = string;
 	}
 
 	public String getPhoneNumber() {
@@ -126,7 +126,7 @@ public class Doctor {
 	}
 
 	@Column(name = "dob")
-    private Date dob;
+    private String dob;
     
     @Column(name = "phoneNumber")
     private String phoneNumber;

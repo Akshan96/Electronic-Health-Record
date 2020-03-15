@@ -109,28 +109,9 @@ public class DoctorController {
 		return modelAndView;
 	}
 	
-//	@GetMapping("/doctor/editProfile/{id}")
-//	public String editDoctorProfile(@PathVariable("id") long id, Model model) {
-//		System.out.println("In edit profile form");
-//		Doctor doctor = doctorService.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
-//		model.addAttribute("doctorProfile", doctor);
-//		return "doctor/home";
-//	}
-//	
 	@PostMapping("/doctor/updateProfile")
 	public String updateDoctorProfile(@Valid Doctor doctor) {
-		Doctor doc = new Doctor();
-		doc.setId(doctor.getId());
-		doc.setUserId(doctor.getUserId());
-		doc.setAddress(doctor.getAddress());
-	    doc.setDob(doctor.getDob());
-	    doc.setExperience(doctor.getExperience());
-	    doc.setFirstName(doctor.getFirstName());
-	    doc.setLastName(doctor.getLastName());
-	    doc.setPhoneNumber(doctor.getPhoneNumber());
-	    doc.setSpeciality(doctor.getSpeciality());
-	    doctorService.saveDoctor(doc);
-	    //model.addAttribute("doctors", doctorService.findAll());
+	    doctorService.saveDoctor(doctor);
 	    return "redirect:/doctor/home";
 	}
 	 
