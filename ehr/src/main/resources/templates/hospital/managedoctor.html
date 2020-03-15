@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Registration Form</title>
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/registration.css}" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+	<div class="container">
+		<form autocomplete="off" action="#"
+			th:action="@{/save/permission}" th:object="${rolePermission}"
+			method="post" class="form-horizontal" role="form">
+			<input type="hidden" th:field="*{id}">
+			<input type="hidden" th:field="*{userId}">
+			<ul>
+				<li th:each="permission:${selectedPermission}" >
+					<input type="checkbox" th:field="*{enumPermissions}" th:value="${permission}">
+					<label th:text="${permission}"></label>
+				</li>
+			</ul>
+
+			<div class="form-group">
+				<div class="col-sm-9">
+					<button type="submit" class="btn btn-primary btn-block">Register
+						User</button>
+				</div>
+			</div>
+
+			<h2>
+				<span class="text-success" th:utext="${successMessage}"></span>
+			</h2>
+
+		</form>
+	</div>
+</body>
+</html>
