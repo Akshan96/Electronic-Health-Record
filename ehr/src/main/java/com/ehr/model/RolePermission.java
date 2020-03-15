@@ -15,7 +15,15 @@ public class RolePermission {
     private int id;
 	@Column(name = "userId")
     private int userId;
-    public int getId() {
+	@Column(name = "medical_history")
+    private boolean medicalHistory;
+	@Column(name = "insurence")
+    private boolean insurence;
+	@Column(name = "patient_info")
+    private boolean patientInfo;
+	@Column(name = "consultation")
+    private boolean consultation;
+	public int getId() {
 		return id;
 	}
 	public void setId(int id) {
@@ -27,16 +35,32 @@ public class RolePermission {
 	public void setUserId(int userId) {
 		this.userId = userId;
 	}
+	public boolean isMedicalHistory() {
+		return medicalHistory;
+	}
+	public void setMedicalHistory(boolean medicalHistory) {
+		this.medicalHistory = medicalHistory;
+	}
+	public boolean isInsurence() {
+		return insurence;
+	}
+	public void setInsurence(boolean insurence) {
+		this.insurence = insurence;
+	}
+	public boolean isPatientInfo() {
+		return patientInfo;
+	}
+	public void setPatientInfo(boolean patientInfo) {
+		this.patientInfo = patientInfo;
+	}
+	public boolean isConsultation() {
+		return consultation;
+	}
+	public void setConsultation(boolean consultation) {
+		this.consultation = consultation;
+	}
+
  
-	@Column(name="permissions")
-	@ElementCollection(targetClass=EnumPermission.class)
-	private List<EnumPermission> enumPermissions;
-	public List<EnumPermission> getEnumPermissions() {
-		return enumPermissions;
-	}
-	public void setEnumPermissions(List<EnumPermission> enumPermissions) {
-		this.enumPermissions = enumPermissions;
-	}
-    
+	
     
 }

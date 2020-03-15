@@ -21,16 +21,27 @@
 			<input type="hidden" th:field="*{id}">
 			<input type="hidden" th:field="*{userId}">
 			<ul>
-				<li th:each="permission:${selectedPermission}" >
-					<input type="checkbox" th:field="*{enumPermissions}" th:value="${permission}">
-					<label th:text="${permission}"></label>
+				<li>
+					<input type="checkbox" th:field="*{medicalHistory}" th:value="${medicalHistory}">
+					<label> Medical History</label>
+				</li>
+				<li>
+					<input type="checkbox" th:field="*{insurence}" th:value="${insurence}">
+					<label>Insurence</label>
+				</li>
+				<li>
+					<input type="checkbox" th:field="*{patientInfo}" th:value="${patientInfo}">
+					<label>Patient Info</label>
+				</li>
+				<li>
+					<input type="checkbox" th:field="*{consultation}" th:value="${consultation}">
+					<label>Consultation</label>
 				</li>
 			</ul>
 
 			<div class="form-group">
 				<div class="col-sm-9">
-					<button type="submit" class="btn btn-primary btn-block">Register
-						User</button>
+					<button type="submit" class="btn btn-primary btn-block">Save Permission</button>
 				</div>
 			</div>
 

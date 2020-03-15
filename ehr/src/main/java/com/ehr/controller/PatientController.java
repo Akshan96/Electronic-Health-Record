@@ -58,5 +58,73 @@ public class PatientController
 			patientService.savePatient(patient1);
 			return "redirect:/admin/home";  
 	 }
+	
+	@PostMapping(value = "/registration/patient")
+    public ModelAndView createNewDoctor(@Valid User user, BindingResult bindingResult) {
+        ModelAndView modelAndView = new ModelAndView();
+        User userExists = userService.findUserByUserName(user.getUserName());
+        if (userExists != null) {
+            bindingResult
+                    .rejectValue("userName", "error.user",
+                            "There is already a user registered with the user name provided");
+        }
+        if (bindingResult.hasErrors()) {
+            modelAndView.setViewName("registration");
+        } else {
+            User createdUser = userService.saveUser(user,2);
+            Patient patient = new Patient();
+            patient.setUserId(createdUser.getId());
+            patientService.savePatient(patient);
+            modelAndView.addObject("successMessage", "Patient has been registered successfully");
+            modelAndView.addObject("user", new User());
+            modelAndView.setViewName("patient/registration");
 
-}
+        }
+        return modelAndView;
+	}
+        
+        @GetMapping(value="/patient/home")
+    	public ModelAndView doctorHome(HttpServletRequest request, Model model){
+    		ModelAndView modelAndView = new ModelAndView();
+    		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    		User user = userService.findUserByUserName(auth.getName());
+    		LoginHistory loginHistory = new LoginHistory(new Date(0),request.getRemoteAddr(),request.getHeader("User-Agent"));
+    		loginHistory.setUser(user);
+    		loginHistoryService.saveLoginHistory(loginHistory);
+    		modelAndView.addObject("loginHistory", loginHistory);
+    		modelAndView.addObject("userName", "Welcome " + user.getUserName() + "/" + user.getName()  + " (" + user.getEmail() + ")");
+    		Patient patient = patientService.findByUserId(user.getId());
+    		System.out.println(" PATIENT ID: "+patient.getId());
+    		modelAndView.addObject("patientId", patient.getId());
+    		modelAndView.addObject("adminMessage","Content Available Only for Users with patient Role");
+    		modelAndView.setViewName("patient/home");
+    		modelAndView.addObject("patientProfile", patient);
+    		return modelAndView;
+    	}
+        
+        @PostMapping("/patient/updateProfile")
+    	public String updatePatientProfile(@Valid Patient patient) {
+    		Patient pat = patientService.findByUserId(patient.getUserId());
+    		pat.setFirstName(patient.getFirstName());
+    		pat.setLastName(patient.getLastName());
+    		pat.setspouseName(patient.getspouseName());
+    		pat.setDob(patient.getDob());
+    		pat.setregistrationDate(patient.getregistrationDate());
+    		pat.setGender(patient.getGender());
+    		pat.setheight(patient.getheight());
+    		pat.setweight(patient.getweight());
+    		pat.setPermnantAddress(patient.getPermnantAddress());
+    		pat.setResidentialAddress(patient.getResidentialAddress());
+    		pat.setMobileNumber(patient.getMobileNumber());
+    		pat.setAlternateNumber(patient.getAlternateNumber());
+    		pat.setpatientEmailId(patient.getpatientEmailId());
+    		pat.setgetinsuranceId(patient.getinsuranceId());
+    	    
+    	    patientService.savePatient(patient);
+    	    //model.addAttribute("doctors", doctorService.findAll());
+    	    return "redirect:/patient/home";
+    	}
+    	
+    }
+
+
