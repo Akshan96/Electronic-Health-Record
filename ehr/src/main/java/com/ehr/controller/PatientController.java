@@ -105,15 +105,22 @@ public class PatientController
         @PostMapping("/patient/updateProfile")
     	public String updatePatientProfile(@Valid Patient patient) {
     		Patient pat = patientService.findByUserId(patient.getUserId());
-    		pat.setAddress(patient.getAddress());
-    	    pat.setDob(patient.getDob());
-    	    pat.setGender(patient.getGender());
-    	    pat.setExperience(patient.getExperience());
-    	    pat.setFirstName(patient.getFirstName());
-    	    pat.setLastName(patient.getLastName());
-    	    pat.setPhoneNumber(patient.getPhoneNumber());
-    	    //pat.setSpeciality(patient.getSpeciality());
-    	    patientService.savePatient(pat);
+    		pat.setFirstName(patient.getFirstName());
+    		pat.setLastName(patient.getLastName());
+    		pat.setspouseName(patient.getspouseName());
+    		pat.setDob(patient.getDob());
+    		pat.setregistrationDate(patient.getregistrationDate());
+    		pat.setGender(patient.getGender());
+    		pat.setheight(patient.getheight());
+    		pat.setweight(patient.getweight());
+    		pat.setPermnantAddress(patient.getPermnantAddress());
+    		pat.setResidentialAddress(patient.getResidentialAddress());
+    		pat.setMobileNumber(patient.getMobileNumber());
+    		pat.setAlternateNumber(patient.getAlternateNumber());
+    		pat.setpatientEmailId(patient.getpatientEmailId());
+    		pat.setgetinsuranceId(patient.getinsuranceId());
+    	    
+    	    patientService.savePatient(patient);
     	    //model.addAttribute("doctors", doctorService.findAll());
     	    return "redirect:/patient/home";
     	}
