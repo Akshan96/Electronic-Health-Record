@@ -108,28 +108,20 @@
 				        <thead>
 				            <tr>
 				            	<th>Sr No.</th>
+				            	<th style="display:none;">Patient Id</th>
 				                <th>First Name</th>
 				                <th>Last Name</th>
 				                <th>Actions</th>
 				            </tr>
 				        </thead>
 				        <tbody>
-				        	<tr>
-				        		<td>1</td>
-				        		<td>ABC</td>
-				        		<td>XYZ</td>
-				        		<td><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></td>
-				        	</tr>
-					        <!-- <tr th:each="doctor : ${doctors}">
-								<td th:text="${doctor.id}"></td>
-								<td th:text="${doctor.userId}"></td>
-								<td th:if="!${doctor.verified}"> 
-									<form method="POST" th:action="@{/admin/d/verify}" th:object="${doctor}">
-									    <input type="hidden" name="userId" th:value="${doctor.userId}">
-									    <button>Verify User</button>
-									</form>
-								<td>
-							</tr> -->
+					        <tr th:each="patient,iteration : ${patients}">
+					        	<td th:text="${iteration.index+1}"></td>
+								<td style="display:none;" th:text="${patient.patientId}"></td>
+								<td th:text="${patient.firstName}"></td>
+								<td th:text="${patient.LastName}"></td>
+								<td><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></td>
+							</tr>
 				        </tbody>
 				   </table>
 	            </div>

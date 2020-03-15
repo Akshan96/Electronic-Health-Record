@@ -1,6 +1,7 @@
 package com.ehr.controller;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -20,9 +21,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ehr.model.Doctor;
 import com.ehr.model.LoginHistory;
+import com.ehr.model.Patient;
 import com.ehr.model.User;
 import com.ehr.service.DoctorService;
 import com.ehr.service.LoginHistoryService;
+import com.ehr.service.PatientService;
 import com.ehr.service.UserService;
 
 @Controller
@@ -30,6 +33,9 @@ public class DoctorController {
 
 	@Autowired
 	private DoctorService doctorService;
+	
+	@Autowired
+	private PatientService patientService;
 
 	@Autowired
 	private LoginHistoryService loginHistoryService;
@@ -97,6 +103,9 @@ public class DoctorController {
 		modelAndView.addObject("adminMessage","Content Available Only for Users with Doctor Role");
 		modelAndView.setViewName("doctor/home");
 		modelAndView.addObject("doctorProfile", doctor);
+		//Patients Information
+		List<Patient> patients = patientService.getAllPatients();
+        modelAndView.addObject("patients", patients);
 		return modelAndView;
 	}
 	
