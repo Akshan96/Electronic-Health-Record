@@ -38,8 +38,8 @@
 				        <tr th:each="doctor : ${doctors}">
 							<td th:text="${doctor.id}"></td>
 							<td th:text="${doctor.userId}"></td>
-							<td th:if="!${doctor.verified}"> 
-								<form method="POST" th:action="@{/admin/d/verify}" th:object="${doctor}">
+							<td> 
+								<form th:if="!${doctor.verified}" method="POST" th:action="@{/admin/d/verify}" th:object="${doctor}">
 								    <input type="hidden" name="userId" th:value="${doctor.userId}">
 								    <button>Verify User</button>
 								</form>

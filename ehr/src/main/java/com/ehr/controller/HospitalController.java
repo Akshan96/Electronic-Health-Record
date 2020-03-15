@@ -69,16 +69,18 @@ public class HospitalController {
             model.addAttribute("rolePermission",permission);
     	} else {
             RolePermission rolePermission = new RolePermission();
+            rolePermission.setUserId(doctor.getUserId());
             model.addAttribute("rolePermission",rolePermission);
     	}
-        model.addAttribute("selectedPermission",EnumPermission.values());
         return "hospital/managedoctor";
     }
     
     @PostMapping(value = "/save/permission")
-    public String savePermission(@ModelAttribute RolePermission rolePermission) {
+    public String savePermission(@ModelAttribute RolePermission rolePermission,Model model) {
     	System.out.println(rolePermission);
     	rolePermissionService.savePermission(rolePermission);
+        model.addAttribute("rolePermission",rolePermission);
+        model.addAttribute("successMessage", "Permission Saved successfully");
     	return "hospital/managedoctor";
     }
     
