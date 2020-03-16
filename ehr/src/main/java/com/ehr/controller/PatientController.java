@@ -94,8 +94,8 @@ public class PatientController
     		modelAndView.addObject("loginHistory", loginHistory);
     		modelAndView.addObject("userName", "Welcome " + user.getUserName() + "/" + user.getName()  + " (" + user.getEmail() + ")");
     		Patient patient = patientService.findByUserId(user.getId());
-    		System.out.println(" PATIENT ID: "+patient.getId());
-    		modelAndView.addObject("patientId", patient.getId());
+    		System.out.println(" PATIENT ID: "+patient.getPatientId());
+    		modelAndView.addObject("patientId", patient.getPatientId());
     		modelAndView.addObject("adminMessage","Content Available Only for Users with patient Role");
     		modelAndView.setViewName("patient/home");
     		modelAndView.addObject("patientProfile", patient);
@@ -104,24 +104,7 @@ public class PatientController
         
         @PostMapping("/patient/updateProfile")
     	public String updatePatientProfile(@Valid Patient patient) {
-    		Patient pat = patientService.findByUserId(patient.getUserId());
-    		pat.setFirstName(patient.getFirstName());
-    		pat.setLastName(patient.getLastName());
-    		pat.setspouseName(patient.getspouseName());
-    		pat.setDob(patient.getDob());
-    		pat.setregistrationDate(patient.getregistrationDate());
-    		pat.setGender(patient.getGender());
-    		pat.setheight(patient.getheight());
-    		pat.setweight(patient.getweight());
-    		pat.setPermnantAddress(patient.getPermnantAddress());
-    		pat.setResidentialAddress(patient.getResidentialAddress());
-    		pat.setMobileNumber(patient.getMobileNumber());
-    		pat.setAlternateNumber(patient.getAlternateNumber());
-    		pat.setpatientEmailId(patient.getpatientEmailId());
-    		pat.setgetinsuranceId(patient.getinsuranceId());
-    	    
     	    patientService.savePatient(patient);
-    	    //model.addAttribute("doctors", doctorService.findAll());
     	    return "redirect:/patient/home";
     	}
     	

@@ -16,7 +16,7 @@ public class PatientService {
 	@Autowired
 	PatientRepository patientRepository;
 	
-	@Transactional
+	//@Transactional
 	public List<Patient> getAllPatients() {
 		return (List<Patient>) patientRepository.findAll();
 	}
