@@ -41,5 +41,9 @@ public class ConsultationService {
 	public List<Consultation> findAllByPatientId(int patient_id) {
 	     return consultationRepository.findAllByPatientId(patient_id);
 	}
-
+	
+	public List<Object> findAllDetailsWithDoctorInfoByPatientId(int patient_id) {
+	     return consultationRepository.findAllDetailsWithDoctorInfoByPatientId(patient_id);
+	}
+	
 }
