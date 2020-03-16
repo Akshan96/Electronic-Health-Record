@@ -11,7 +11,7 @@ public class Patient {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "patient_id")
-    private int patientid;
+    private int patientId;
     
     public boolean isVerified() {
 		return isVerified();
@@ -74,11 +74,11 @@ public class Patient {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Patient(int patientid, int userId, String firstName, String lastName,String spouseName, Date dob, Date registrationDate, String gender, int height, int weight, String permnantAddress,
+	public Patient(int patientId, int userId, String firstName, String lastName,String spouseName, Date dob, Date registrationDate, String gender, int height, int weight, String permnantAddress,
 			String residentialAddress, String mobileNumber, String alternateNumber,String patientEmailId, String insuranceId,  Object verified) 
 	{
 		super();
-		this.patientid = patientid;
+		this.patientId = patientId;
 		this.userId = userId;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -98,10 +98,10 @@ public class Patient {
 	
 
 	public int getPatientId() {
-		return patientid;
+		return patientId;
 	}
-	public void setPatientId(int id) {
-		this.patientid = patientid;
+	public void setPatientId(int patientId) {
+		this.patientId = patientId;
 	}
 
 	public int getUserId() {
