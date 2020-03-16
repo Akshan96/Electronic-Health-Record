@@ -115,5 +115,12 @@ public class DoctorController {
 	    return "redirect:/doctor/home";
 	}
 	 
-
+    
+    @GetMapping("/doctor/patientDetails/{patientId}")
+    public String showUpdateForm(@PathVariable("patientId") int patientId, Model model) {
+        System.out.println("Patient Details patient ID: "+patientId);
+        Patient patient = patientService.findById(patientId);
+        model.addAttribute("patient", patient);
+        return "doctor/patient_details";
+    }
 }

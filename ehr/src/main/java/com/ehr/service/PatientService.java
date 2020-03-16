@@ -1,6 +1,5 @@
 package com.ehr.service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,13 +15,6 @@ public class PatientService {
 	
 	@Autowired
 	PatientRepository patientRepository;
-	
-//	public List<Patient> getAllPatients(){
-//		List<Patient> listOfPatients = new ArrayList();
-//		listOfPatients = patientRepository.findAll();
-//		System.out.println("serviceData: "+listOfPatients);
-//		return listOfPatients;
-//	}
 	
 	@Transactional
 	public List<Patient> getAllPatients() {
@@ -40,13 +32,11 @@ public class PatientService {
 	}
 
 	public Patient findByUserId(int userId) {
-		// TODO Auto-generated method stub
 		return patientRepository.findByUserId(userId);
 	}
-
 	
-
-	
-	
+    public Patient findById(int patientId) {
+        return patientRepository.findByPatientId(patientId);
+    }
 	
 }
