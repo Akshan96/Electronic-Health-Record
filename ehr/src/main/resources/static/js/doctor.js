@@ -9,3 +9,8 @@ $(document).ready(function() {
 $(document).ready(function() {
     $('#listOfPatients').DataTable();
 } );
+
+//WYSIWYG
+$(document).ready(function() {
+  $('.summernote').summernote();
+});

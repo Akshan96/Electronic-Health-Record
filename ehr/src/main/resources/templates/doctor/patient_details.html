@@ -12,6 +12,9 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
 	<script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap.min.js"></script>
+	<!-- include summernote css/js -->
+	<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.16/dist/summernote.min.css" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.16/dist/summernote.min.js"></script>
     <script th:src="@{/js/common/bootstrap-datepicker.js}"></script>
     <script th:src="@{/js/doctor.js}"></script>
 </head>
@@ -107,7 +110,27 @@
 	            </div>
 	            
 	            <div class="panel-body">
-                	<h3>Profile</span></h3>
+                	<form autocomplete="off" action="#" th:action="@{/doctor/addConsultation}"
+		                  th:object="${consultation}" method="POST" class="form-horizontal"
+		                  role="form">
+		                <input type="hidden" name="patientId" th:value="${patient.patientId}">
+	                     <input type="hidden" name="doctorId" th:value="${doctor.Id}">
+	                     <div class="form-group">
+	                     	<div class="col-sm-12">
+	                     	<textarea class="summernote" th:field="*{consultComment}" placeholder="Comment For Consultation">
+	                     	</textarea>
+	                     	</div>
+	                     </div>
+		
+		                <div class="form-group">
+		                    <div class="col-sm-12">
+		                        <button type="submit" class="btn btn-success btn-block">Submit</button>
+		                    </div>
+		                </div>
+		
+		                <h2><span class="text-success" th:utext="${successMessage}"></span></h2>
+		
+		            </form>
 	            </div>
 	            </div>
 	    </div>
@@ -126,58 +149,29 @@
             <div class="panel-body">
                 <div class="container-fluid">
 				    <div class="qa-message-list" id="wallmessages">
-				    				<div class="message-item" id="m16">
+				    
+				    				<div class="message-item" id="m16" th:each="consultation : ${consultations}">
 										<div class="message-inner">
 											<div class="message-head clearfix">
-												<div class="avatar pull-left"><a href=""><img src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png"></a></div>
+												<div class="avatar pull-left"><a href=""><img class="timeline-img" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png"></a></div>
 												<div class="user-detail">
 													<h5 class="handle">Hospital Name</h5>
 													<div class="post-meta">
 														<div class="asker-meta">
 															<span class="qa-message-what"></span>
 															<span class="qa-message-when">
-																<span class="qa-message-when-data">Jan 21</span>
+																<span class="qa-message-when-data" th:utext="${consultation.dateInsert}"></span>
 															</span>
 															<span class="qa-message-who">
 																<span class="qa-message-who-pad">by </span>
-																<span class="qa-message-who-data"><a href="">Oleg Kolesnichenko</a></span>
+																<span class="qa-message-who-data" th:utext="${consultation.doctorId}"></span>
 															</span>
 														</div>
 													</div>
 												</div>
 											</div>
 											<div class="qa-message-content">
-												Yo!fsdg
-												dsgsdg
-												sdzgs				
-											</div>
-										</div>
-									</div>
-									
-									<div class="message-item" id="m16">
-										<div class="message-inner">
-											<div class="message-head clearfix">
-												<div class="avatar pull-left"><a href=""><img src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png"></a></div>
-												<div class="user-detail">
-													<h5 class="handle">Hospital Name</h5>
-													<div class="post-meta">
-														<div class="asker-meta">
-															<span class="qa-message-what"></span>
-															<span class="qa-message-when">
-																<span class="qa-message-when-data">Jan 21</span>
-															</span>
-															<span class="qa-message-who">
-																<span class="qa-message-who-pad">by </span>
-																<span class="qa-message-who-data"><a href="">Oleg Kolesnichenko</a></span>
-															</span>
-														</div>
-													</div>
-												</div>
-											</div>
-											<div class="qa-message-content">
-												Yo!fsdg
-												dsgsdg
-												sdzgs				
+												<p th:utext="${consultation.consultComment}"></p>				
 											</div>
 										</div>
 									</div>

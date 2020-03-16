@@ -18,11 +18,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.ehr.model.Consultation;
 import com.ehr.model.Doctor;
 import com.ehr.model.LoginHistory;
 import com.ehr.model.Patient;
 import com.ehr.model.User;
+import com.ehr.service.ConsultationService;
 import com.ehr.service.DoctorService;
 import com.ehr.service.LoginHistoryService;
 import com.ehr.service.PatientService;
@@ -36,6 +39,9 @@ public class DoctorController {
 	
 	@Autowired
 	private PatientService patientService;
+	
+	@Autowired
+	private ConsultationService consultationService;
 
 	@Autowired
 	private LoginHistoryService loginHistoryService;
@@ -118,9 +124,27 @@ public class DoctorController {
     
     @GetMapping("/doctor/patientDetails/{patientId}")
     public String showUpdateForm(@PathVariable("patientId") int patientId, Model model) {
+    	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		User user = userService.findUserByUserName(auth.getName());
+		Doctor doctor = doctorService.findByUserId(user.getId());
+		System.out.println(" DOCTOR ID: "+doctor.getId());
+		model.addAttribute("doctor", doctor);
         System.out.println("Patient Details patient ID: "+patientId);
         Patient patient = patientService.findById(patientId);
+		List<Consultation> consultations = consultationService.findAllByPatientId(patientId);
+		System.out.println("L: "+consultations);
         model.addAttribute("patient", patient);
+        model.addAttribute("consultations", consultations);
+        Consultation consultation = new Consultation();
+        model.addAttribute("consultation", consultation);
         return "doctor/patient_details";
     }
+    
+    @PostMapping("/doctor/addConsultation")
+   	public String addConsultation(@Valid Consultation consultation, RedirectAttributes redirectAttributes) {
+   	    consultationService.saveConsultation(consultation);
+   	    int patientId = consultation.getPatientId();
+   	    //redirectAttributes.addAttribute(patientId);
+   	    return "redirect:/doctor/patientDetails/"+patientId;
+   	}
 }

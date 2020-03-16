@@ -30,13 +30,18 @@ public class Doctor {
     @Column(name = "userId")
     private int userId;
     
-    public Doctor(int id, String firstName, String lastName, int userId, boolean verified, String dob, String phoneNumber,
-			String address, String speciality, String experience) {
+    @Column(name = "hospital_id")
+    private String hospitalId;
+    
+
+	public Doctor(int id, String firstName, String lastName, int userId, String hospitalId, boolean verified,
+			String dob, String phoneNumber, String address, String speciality, String experience) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.userId = userId;
+		this.hospitalId = hospitalId;
 		this.verified = verified;
 		this.dob = dob;
 		this.phoneNumber = phoneNumber;
@@ -139,6 +144,14 @@ public class Doctor {
     
     @Column(name = "experience")
     private String experience;
+
+	public String getHospitalId() {
+		return hospitalId;
+	}
+
+	public void setHospitalId(String hospitalId) {
+		this.hospitalId = hospitalId;
+	}
     
 
 }
