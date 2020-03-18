@@ -27,8 +27,11 @@
                class="form-control"/> <br/>
         </div>
                
+        <div class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
         <input type="password" th:placeholder="Password"
                id="password" name="password" class="form-control"/> <br/>
+        </div>
         
 
         <div align="center" th:if="${param.error}">
