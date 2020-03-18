@@ -21,10 +21,15 @@
         <h3 class="form-signin-heading" th:text="Welcome"></h3>
         <br/>
 
+		<div class="input-group">
+		<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
         <input type="text" id="user_name" name="user_name" placeholder="User Name"
                class="form-control"/> <br/>
+        </div>
+               
         <input type="password" th:placeholder="Password"
                id="password" name="password" class="form-control"/> <br/>
+        
 
         <div align="center" th:if="${param.error}">
             <p style="font-size: 20; color: #FF1C19;">User Name or Password invalid, please verify</p>
