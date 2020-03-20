@@ -1,6 +1,7 @@
 package com.ehr.controller;
 
 import java.sql.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -19,13 +20,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ehr.model.Patient;
+import com.ehr.model.Consultation;
 import com.ehr.model.Doctor;
 import com.ehr.model.LoginHistory;
 import com.ehr.model.User;
+import com.ehr.model.MedicalHistory;
 import com.ehr.service.PatientService;
 import com.ehr.service.DoctorService;
 import com.ehr.service.LoginHistoryService;
 import com.ehr.service.UserService;
+import com.ehr.service.MedicalHistoryService;
 
 @Controller
 public class PatientController 
@@ -38,6 +42,9 @@ public class PatientController
 
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private MedicalHistoryService MedicalHistoryService;
 
 	@GetMapping(value="/registration/patient")
 	public ModelAndView registrationPatient(){
@@ -84,7 +91,7 @@ public class PatientController
 	}
         
         @GetMapping(value="/patient/home")
-    	public ModelAndView doctorHome(HttpServletRequest request, Model model){
+    	public ModelAndView patientHome(HttpServletRequest request, Model model){
     		ModelAndView modelAndView = new ModelAndView();
     		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
     		User user = userService.findUserByUserName(auth.getName());
@@ -101,6 +108,27 @@ public class PatientController
     		modelAndView.addObject("patientProfile", patient);
     		return modelAndView;
     	}
+        
+        @GetMapping(value="/patient/MedicalHistory/{patientId}")
+        public String showUpdateForm(@PathVariable("patientId") int patientId, Model model) {
+        	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    		User user = userService.findUserByUserName(auth.getName());
+    		//Patient patient = patientService.findByUserId(user.getId());
+    		//System.out.println(" PATIENT ID: "+patient.getId());
+    		//model.addAttribute("patient", patient);
+            //System.out.println("Medical History ID: "+medicalhistoryId);
+            Patient patient = patientService.findById(patientId);
+            MedicalHistory medicalhistories = MedicalHistoryService.findById(patientId);
+    		//List<Consultation> consultations = consultationService.findAllByPatientId(patientId);
+    		//System.out.println("L: "+consultations);
+            model.addAttribute("patient", patient);
+            model.addAttribute("medicalhistories", medicalhistories);
+            MedicalHistory medicalhistory = new MedicalHistory();
+            model.addAttribute("medialhistory", medicalhistory);
+            return "patient/MedicalHistory";
+          
+        }
+        
         
         @PostMapping("/patient/updateProfile")
     	public String updatePatientProfile(@Valid Patient patient) {
