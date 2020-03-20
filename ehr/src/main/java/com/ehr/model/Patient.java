@@ -208,6 +208,13 @@ public class Patient {
 		this.insuranceId = insuranceId;
 	}
 
+	public int getId() {
+		return patientId;
+	}
+
+	public void setId(int patientId) {
+		this.patientId = patientId;
+	}
 	
 	
 }
