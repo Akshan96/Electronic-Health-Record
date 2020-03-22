@@ -23,11 +23,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.ehr.model.Patient;
 import com.ehr.model.Consultation;
 import com.ehr.model.Doctor;
+import com.ehr.model.Insurance;
 import com.ehr.model.LoginHistory;
 import com.ehr.model.User;
 import com.ehr.model.MedicalHistory;
 import com.ehr.service.PatientService;
 import com.ehr.service.DoctorService;
+import com.ehr.service.InsurenceService;
 import com.ehr.service.LoginHistoryService;
 import com.ehr.service.UserService;
 import com.ehr.service.MedicalHistoryService;
@@ -43,6 +45,9 @@ public class PatientController
 
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private InsurenceService insurenceService;
 	
 	@Autowired
 	private MedicalHistoryService MedicalHistoryService;
@@ -114,14 +119,8 @@ public class PatientController
         public String showUpdateForm(@PathVariable("patientId") int patientId, Model model) {
         	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
     		User user = userService.findUserByUserName(auth.getName());
-    		//Patient patient = patientService.findByUserId(user.getId());
-    		//System.out.println(" PATIENT ID: "+patient.getId());
-    		//model.addAttribute("patient", patient);
-            //System.out.println("Medical History ID: "+medicalhistoryId);
             Patient patient = patientService.findById(patientId);
             MedicalHistory medicalhistories = MedicalHistoryService.findById(patientId);
-    		//List<Consultation> consultations = consultationService.findAllByPatientId(patientId);
-    		//System.out.println("L: "+consultations);
             model.addAttribute("patient", patient);
             model.addAttribute("medicalhistories", medicalhistories);
             MedicalHistory medicalhistory = new MedicalHistory();
@@ -129,6 +128,30 @@ public class PatientController
             return "patient/MedicalHistory";
           
         }
+        
+        
+        @GetMapping(value="/patient/insurence/{patientId}")
+        public String insurence(@PathVariable("patientId") int patientId, Model model) {
+        	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            Insurance insurance = insurenceService.getInsurenceByPatientId(patientId);
+            if(insurance != null) {
+                model.addAttribute("insurence", insurance);
+            } else {
+            	Insurance insurance2 = new Insurance();
+            	insurance2.setPatientId(patientId);
+                model.addAttribute("insurence", insurance2);
+            }
+            return "patient/Insurence";
+          
+        }
+        
+        
+        @PostMapping("/p/updateInsurence")
+    	public String updateInsurence(@Valid Insurance insurance) {
+    	    insurenceService.saveInsurence(insurance);
+    	    return "redirect:/patient/home";
+        }
+    	
         
         
         @PostMapping("/patient/updateProfile")

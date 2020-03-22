@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Patient Page</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/home.css}"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script th:src="@{/js/common/bootstrap-datepicker.js}"></script>
+    <script th:src="@{/js/doctor.js}"></script>
+</head>
+
+<body>
+<div class="container">
+
+    <form th:action="@{/logout}" method="get">
+        <button class="btn btn-md btn-danger btn-block" name="registration"
+                type="Submit">Logout
+        </button>
+    </form>
+
+<div class="row">
+		<div class="col-md-12">
+		<form th:action="@{/patient/home}" method="get">
+		    <button class="btn btn-default pull-right " type="Submit">Back to Dashboard</button>
+		</form>
+		</div>
+	</div>
+	
+    <div class="panel-group" style="margin-top:40px">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <span th:utext="${userName}"></span>
+                <button class="btn btn-info dtn-sm pull-right" >
+                	<span class="glyphicon glyphicon glyphicon-user" aria-hidden="true"></span>
+                </button>
+        		<div class="clearfix"></div>
+            </div>
+            <div class="panel-body">
+                <img th:src="@{/images/EHR.png}" class="img-responsive center-block" width="400" height="400"
+                     alt="Beer"/>
+
+                     <h3>Insurence</h3>
+                     <form action="#" th:action="@{/p/updateInsurence}" th:object="${insurence}" method="post">
+                     <input type="hidden" name="patientId" th:value="${insurence.patientId}">
+                     <input type="hidden" name="id" th:value="${patientId}">
+					  <div class="form-group">
+					    <label for="">Company Name</label>
+					    <input type="text" class="form-control" th:field="*{companyName}" id="companyName">
+					  </div>
+					  
+					  <div class="form-group">
+					    <label for="">Max Claim Amount</label>
+					    <input type="text" class="form-control" th:field="*{maxClaimAmout}" id="lastName" >
+					  </div>
+					  
+					   <div class="form-group">
+					    <label for="">Issue Date</label>
+					    <input type="date" class="form-control" th:field="*{issueDate}" id="issueDate">
+					  </div>
+					  
+					  <div class="form-group">
+					    <label for="">Expire Date</label>
+					    <input type="date" class="form-control" th:field="*{issueDate}" id="expiryDate">
+					  </div>
+					  
+					
+				    <button type="submit" class="btn btn-primary" style="float:right">Submit</button>
+					</form>
+            </div>
+            <p class="admin-message-text text-center" th:utext="${adminMessage}"></p>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
