@@ -26,13 +26,38 @@ public class MedicalHistory
     
     @Column(name = "userId")
     private int userId;
-    
-    @Column(name="date_insert", insertable = false, updatable = false)
+   
+   
+	@Column(name="date_insert", insertable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateInsert;
     
     @Column(name = "Chief_Complaint_CC")
 	private String CC;
+    
+	@Column(name = "History_of_present_illness_HPL")
+	private String HPI;
+    
+    @Column(name = "Past_medical_histor_PMH")
+	private String PMH;
+    
+    @Column(name = "Review_of_organ_system_ROS")
+	private String ROS;
+    
+    @Column(name = "Family_diseases_FD")
+	private String FD;
+    
+    @Column(name = "Childhood_diseases_CD")
+	private String CD;
+    
+    @Column(name = "Allergeies")
+   	private String allergies;
+    
+    @Column(name = "Is_Diabetic")
+   	private Boolean isDiabetic;
+    
+    @Column(name = "PrescribeMedicine_PM")
+   	private String PM;
     
     /**
 	 * @return the medicalhistoryId
@@ -215,29 +240,7 @@ public class MedicalHistory
 	public void setPM(String pM) {
 		PM = pM;
 	}
+    
+   
 
-	@Column(name = "History_of_present_illness_HPL")
-	private String HPI;
-    
-    @Column(name = "Past_medical_histor_PMH")
-	private String PMH;
-    
-    @Column(name = "Review_of_organ_system_ROS")
-	private String ROS;
-    
-    @Column(name = "Family_diseases_FD")
-	private String FD;
-    
-    @Column(name = "Childhood_diseases_CD")
-	private String CD;
-    
-    @Column(name = "Allergeies")
-   	private String allergies;
-    
-    @Column(name = "Is_Diabetic")
-   	private Boolean isDiabetic;
-    
-    @Column(name = "PrescribeMedicine_PM")
-   	private String PM;
-    
 }

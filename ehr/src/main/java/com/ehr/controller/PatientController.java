@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ehr.model.Patient;
 import com.ehr.model.Consultation;
@@ -135,6 +136,14 @@ public class PatientController
     	    patientService.savePatient(patient);
     	    return "redirect:/patient/home";
     	}
+        
+        @PostMapping("/patient/addMedicalHistory")
+       	public String addMedicalHistory(@Valid MedicalHistory medicalhistory, RedirectAttributes redirectAttributes) {
+       	    MedicalHistoryService.saveMedicalHistory(medicalhistory);
+       	    int patientId = medicalhistory.getPatientId();
+       	    //redirectAttributes.addAttribute(patientId);
+       	    return "redirect:/patient/MedicalHistory/"+patientId;
+       	}
     	
     }
 

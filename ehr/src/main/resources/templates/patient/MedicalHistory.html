@@ -3,7 +3,7 @@
       xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Medical History</title>
+    <title>Patient Medical History</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/home.css}"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" th:href="@{/css/timeline.css}"/>
@@ -63,7 +63,7 @@
 	    <div class="panel-group" style="margin-top:40px">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <b><span> Medical History </span></b>
+                <b><span> Patient Details </span></b>
                 <button class="btn btn-info dtn-sm pull-right">
                 	<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
                 </button>
@@ -79,24 +79,18 @@
 								<div class="row">
 									<div class="col-md-8 col-sm-8">
 									<h2 class="card-title"><strong><span th:utext="${patient.firstName +' '+ patient.lastName}"></span></strong></h2>
-									<p class="card-text"><strong>Date when medical history was updated: </strong> <span th:utext="${medicalhistory.dateInsert}"></span> </p>
-									<p class="card-text"><strong>Chief_Complaint_CC: </strong> <span th:utext="${medicalhistory.CC}"></span> </p>
-									<p class="card-text"><strong>History_of_present_illness_HPL: </strong> <span th:utext="${medicalhistory.HPI}"></span> </p>
-									<p class="card-text"><strong>Past_medical_histor_PMH: </strong> <span th:utext="${medicalhistory.PMH}"></span> </p>
-									<p class="card-text"><strong>Review_of_organ_system_ROS: </strong> <span th:utext="${medicalhistory.ROS}"></span> </p>
-									<p class="card-text"><strong>Family_diseases_FD: </strong> <span th:utext="${medicalhistory.FD}"></span> </p>
-									<p class="card-text"><strong>Childhood_diseases_CD: </strong> <span th:utext="${medicalhistory.CD}"></span> </p>
-									<p class="card-text"><strong>Allergeies: </strong> <span th:utext="${medicalhistory.allergies}"></span> </p>
-									<p class="card-text"><strong>Is_Diabetic: </strong> <span th:utext="${medicalhistory.isDiabetic}"></span> </p>
-									<p class="card-text"><strong>PrescribeMedicine_PM: </strong> <span th:utext="${medicalhistory.PM}"></span> </p>
-									
-									
+									<p class="card-text"><strong>DOB: </strong> <span th:utext="${patient.dob}"></span> </p>
+									<p class="card-text"><strong>Residential Address: </strong> <span th:utext="${patient.residentialAddress}"></span> </p>
+									<p><strong>Contact Details: </strong>
+									<span th:utext="${patient.mobileNumber}"></span>,
+									<span th:utext="${patient.alternateNumber}"></span>
+									</p>
 									</div>
 									<div class="col-md-4 col-sm-4 text-center">
 										<img th:src="@{/images/avatar.webp}" class="img-responsive center-block" style="border-radius:50%;" width="250" height="250" alt="profile"/>
 									</div> 
 								</div>
-								</div>
+							</div>
 							</div>
 						</div>
 					</div> 
@@ -105,3 +99,146 @@
             
         </div>
         </div>
+        
+        <div class="panel-group" style="margin-top:40px">
+	        <div class="panel panel-warning">
+	            <div class="panel-heading">
+	            <b><span> Medical History Form </span></b>
+	                <button class="btn btn-info dtn-sm pull-right">
+	                	<span class="glyphicon glyphicon glyphicon-pencil" aria-hidden="true"></span>
+	                </button>
+	        		<div class="clearfix"></div>
+	            </div>
+	            
+	            <div class="panel-body">
+                	<form autocomplete="off" action="#" th:action="@{/patient/addMedicalHistory}"
+		                  th:object="${consultation}" method="POST" class="form-horizontal"
+		                  role="form">
+		                <input type="hidden" name="patientId" th:value="${patient.patientId}">
+	                    
+	                     
+	                     <div class="form-group">
+	                     	<div class="col-sm-12">
+	                     	
+	                     	
+	                     	<div class="form-group">
+  							<label for="exampleFormControlTextarea1">Date when medical history was updated:</label>
+  							<textarea class="form-control rounded-0"  th:field="${medicalhistory.dateInsert}" id="exampleFormControlTextarea1" rows="1"></textarea>
+							</div>
+							
+							<div class="form-group">
+  							<label for="exampleFormControlTextarea1">Chief_Complaint_CC:</label>
+  							<textarea class="form-control rounded-0" th:field="${medicalhistory.CC}" id="exampleFormControlTextarea1" rows="4"></textarea>
+							</div>
+							
+							<div class="form-group">
+  							<label for="exampleFormControlTextarea1">History_of_present_illness_HPL:</label>
+  							<textarea class="form-control rounded-0" th:field="${medicalhistory.HPI}" id="exampleFormControlTextarea1" rows="4"></textarea>
+							</div>
+							
+							<div class="form-group">
+  							<label for="exampleFormControlTextarea1">Past_medical_histor_PMH:</label>
+  							<textarea class="form-control rounded-0" th:field="${medicalhistory.PMH}" id="exampleFormControlTextarea1" rows="4"></textarea>
+							</div>
+							
+							<div class="form-group">
+  							<label for="exampleFormControlTextarea1">Review_of_organ_system_ROS:</label>
+  							<textarea class="form-control rounded-0" th:field="${medicalhistory.ROS}" id="exampleFormControlTextarea1" rows="4"></textarea>
+							</div>
+							
+							<div class="form-group">
+  							<label for="exampleFormControlTextarea1">Family_diseases_FD: </label>
+  							<textarea class="form-control rounded-0" th:field="${medicalhistory.FD}" id="exampleFormControlTextarea1" rows="4"></textarea>
+							</div>
+							
+							<div class="form-group">
+  							<label for="exampleFormControlTextarea1">Childhood_diseases_CD:</label>
+  							<textarea class="form-control rounded-0" th:field="${medicalhistory.CD}" id="exampleFormControlTextarea1" rows="4"></textarea>
+							</div>
+							
+							<div class="form-group">
+  							<label for="exampleFormControlTextarea1">Allergeies:</label>
+  							<textarea class="form-control rounded-0" th:field="${medicalhistory.allergies}"  id="exampleFormControlTextarea1" rows="4"></textarea>
+							</div>
+							
+							<div class="form-group">
+  							<label for="exampleFormControlTextarea1">Is_Diabetic: </label>
+  							<textarea class="form-control rounded-0" th:field="${medicalhistory.isDiabetic}" id="exampleFormControlTextarea1" rows="4"></textarea>
+							</div>
+							
+							<div class="form-group">
+  							<label for="exampleFormControlTextarea1">PrescribeMedicine_PM: </label>
+  							<textarea class="form-control rounded-0" th:field="${medicalhistory.PM}" id="exampleFormControlTextarea1" rows="4"></textarea>
+							</div>
+	                     	</div>
+	                     </div>
+		
+		                <div class="form-group">
+		                    <div class="col-sm-12">
+		                        <button type="submit" class="btn btn-success btn-block">Submit</button>
+		                    </div>
+		                </div>
+		
+		                <h2><span class="text-success" th:utext="${successMessage}"></span></h2>
+		
+		            </form>
+	            </div>
+	            </div>
+	    </div>
+	  </div>
+	  
+	  <div class="col-md-8">
+	  <div class="panel-group" style="margin-top:40px">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <b><span> Patient Medical History Review </span></b>
+                <button class="btn btn-info dtn-sm pull-right">
+                	<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+                </button>
+        		<div class="clearfix"></div>
+            </div>
+            
+            <div class="panel-body">
+                <div class="container-fluid">
+				    <div class="qa-message-list" id="wallmessages">
+				    
+				    				<div class="message-item" id="m16" th:each="medicalhistory : ${medicalhistories}">
+										<div class="message-inner">
+											<div class="message-head clearfix">
+												<div class="avatar pull-left"><a href=""><img class="timeline-img" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png"></a></div>
+												<div class="user-detail">
+													<h5 class="handle">Hospital Name</h5>
+													<div class="post-meta">
+														<div class="asker-meta">
+															<span class="qa-message-what"></span>
+															
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="qa-message-content">
+												<p th:utext="${medicalhistory.dateInsert}"></p>	
+												<p th:utext="${medicalhistory.CC}"></p>
+												<p th:utext="${medicalhistory.HPI}"></p>
+												<p th:utext="${medicalhistory.PMH}"></p>
+												<p th:utext="${medicalhistory.ROS}"></p>
+												<p th:utext="${medicalhistory.FD}"></p>
+												<p th:utext="${medicalhistory.CD}"></p>
+												<p th:utext="${medicalhistory.CD}"></p> 
+												<p th:utext="${medicalhistory.allergies}"></p>
+												<p th:utext="${medicalhistory.isDiabetic}"></p> 
+												<p th:utext="${medicalhistory.PM}"></p>					
+											</div>
+										</div>
+									</div>
+								</div>
+				</div>
+            </div>
+            
+        </div>
+    	</div> 
+	  </div>
+	</div>
+</div>
+</body>
+</html>

@@ -26,7 +26,7 @@ public class MedicalHistoryService {
 		return MedicalHistoryRepository.findById(medicalhistoryId);
 	}
 	
-	public void savePatient(MedicalHistory MedicalHistory) {
+	public void saveMedicalHistory(MedicalHistory MedicalHistory) {
 		MedicalHistoryRepository.save(MedicalHistory);
 	}
 

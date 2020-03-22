@@ -147,7 +147,8 @@
 				            	<th style="display:none;">Patient Id</th>
 				                <th>First Name</th>
 				                <th>Last Name</th>
-				                <th>Actions</th>
+				                <th>consultation</th>
+				                <th>Medical History</th>
 				            </tr>
 				        </thead>
 				        <tbody>
@@ -159,6 +160,12 @@
 								<td>
                                     <form method="GET" th:action="@{/doctor/patientDetails/{patientId}(patientId=${patient.patientId})}" th:object="${patient}" target="_blank">
                                         <input type="hidden" name="id" th:value="${doctorId}">
+                                        <button><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></button>
+                                    </form>
+                                </td>
+                                <td>
+                                    <form method="GET" th:action="@{/patient/MedicalHistory/{patientId}(patientId=${patient.patientId})}" th:object="${patient}" target="_blank">
+                                        <input type="hidden" name="id" th:value="${patientId}">
                                         <button><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></button>
                                     </form>
                                 </td>
