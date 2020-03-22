@@ -36,8 +36,8 @@
                 <img th:src="@{/images/EHR.png}" class="img-responsive center-block" width="400" height="400"
                      alt="Beer"/>
 
-                     <h3>Profile</span></h3>
-                     <form action="#" th:action="@{/patient/updateProfile}" th:object="$patientProfile}" method="post">
+                     <h3>Profile</h3>
+                     <form action="#" th:action="@{/patient/updateProfile}" th:object="${patientProfile}" method="post">
                      <input type="hidden" name="userId" th:value="${patientProfile.userId}">
                      <input type="hidden" name="id" th:value="${patientId}">
 					  <div class="form-group">
@@ -105,11 +105,6 @@
 					  <div class="form-group">
 					    <label for="">Alternate Phone Number</label>
 					    <input type="tel" class="form-control" th:field="*{alternateNumber}" id="alternateNumber">
-					  </div>
-					  
-					  <div class="form-group">
-					    <label for="">Patient Email Address</label>
-					    <input type="email" class="form-control" th:field="*{patientEmailId}" id="patientEmailId">
 					  </div>
 					  
 					  <div class="form-group">

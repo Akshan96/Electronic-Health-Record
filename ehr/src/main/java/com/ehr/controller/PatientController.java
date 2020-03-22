@@ -104,8 +104,8 @@ public class PatientController
     		System.out.println(" PATIENT ID: "+patient.getPatientId());
     		modelAndView.addObject("patientId", patient.getPatientId());
     		modelAndView.addObject("adminMessage","Content Available Only for Users with patient Role");
-    		modelAndView.setViewName("patient/home");
     		modelAndView.addObject("patientProfile", patient);
+    		modelAndView.setViewName("patient/home");
     		return modelAndView;
     	}
         
