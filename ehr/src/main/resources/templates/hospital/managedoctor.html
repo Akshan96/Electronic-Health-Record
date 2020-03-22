@@ -15,12 +15,27 @@
 <body>
 
 	<div class="container">
-		<form autocomplete="off" action="#"
+	
+	<br/>
+	<br/>
+	<div class="row">
+		<div class="col-md-12">
+		<form th:action="@{/hospital/home}" method="get">
+		    <button class="btn btn-default pull-right " type="Submit">Back to Dashboard</button>
+		</form>
+		</div>
+	</div>
+	<br/>
+	<br/>
+	<div class="panel panel-default">
+	  <div class="panel-heading">Mangage Permission</div>
+	  <div class="panel-body">
+	  			<form autocomplete="off" action="#"
 			th:action="@{/save/permission}" th:object="${rolePermission}"
 			method="post" class="form-horizontal" role="form">
 			<input type="hidden" th:field="*{id}">
 			<input type="hidden" th:field="*{userId}">
-			<ul>
+			<ul style="list-style: none;">
 				<li>
 					<input type="checkbox" th:field="*{medicalHistory}" th:value="${medicalHistory}">
 					<label> Medical History</label>
@@ -40,8 +55,8 @@
 			</ul>
 
 			<div class="form-group">
-				<div class="col-sm-9">
-					<button type="submit" class="btn btn-primary btn-block">Save Permission</button>
+				<div class="col-sm-12">
+					<button type="submit" class="btn btn-primary pull-right">Save Permission</button>
 				</div>
 			</div>
 
@@ -50,6 +65,9 @@
 			</h2>
 
 		</form>
+	  </div>
+	</div>
+
 	</div>
 </body>
 </html>

@@ -68,7 +68,7 @@ public class Patient {
 	}
 
 	public Patient(int patientId, int userId, String firstName, String lastName, String spouseName, Date dob,
-			Date registrationDate, String gender, int height, int weight, String permnantAddress,
+			Date registrationDate, String gender, Integer height, Integer weight, String permnantAddress,
 			String residentialAddress, String mobileNumber, String alternateNumber, String insuranceId) {
 		super();
 		this.patientId = patientId;
@@ -152,19 +152,19 @@ public class Patient {
 		this.gender = gender;
 	}
 
-	public int getHeight() {
+	public Integer getHeight() {
 		return height;
 	}
 
-	public void setHeight(int height) {
+	public void setHeight(Integer height) {
 		this.height = height;
 	}
 
-	public int getWeight() {
+	public Integer getWeight() {
 		return weight;
 	}
 
-	public void setWeight(int weight) {
+	public void setWeight(Integer weight) {
 		this.weight = weight;
 	}
 
@@ -208,6 +208,13 @@ public class Patient {
 		this.insuranceId = insuranceId;
 	}
 
+	public int getId() {
+		return patientId;
+	}
+
+	public void setId(int patientId) {
+		this.patientId = patientId;
+	}
 	
 	
 }
