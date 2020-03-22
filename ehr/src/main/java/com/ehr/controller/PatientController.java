@@ -113,14 +113,8 @@ public class PatientController
         public String showUpdateForm(@PathVariable("patientId") int patientId, Model model) {
         	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
     		User user = userService.findUserByUserName(auth.getName());
-    		//Patient patient = patientService.findByUserId(user.getId());
-    		//System.out.println(" PATIENT ID: "+patient.getId());
-    		//model.addAttribute("patient", patient);
-            //System.out.println("Medical History ID: "+medicalhistoryId);
             Patient patient = patientService.findById(patientId);
             MedicalHistory medicalhistories = MedicalHistoryService.findById(patientId);
-    		//List<Consultation> consultations = consultationService.findAllByPatientId(patientId);
-    		//System.out.println("L: "+consultations);
             model.addAttribute("patient", patient);
             model.addAttribute("medicalhistories", medicalhistories);
             MedicalHistory medicalhistory = new MedicalHistory();
