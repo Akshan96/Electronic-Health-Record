@@ -22,11 +22,13 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ehr.model.Patient;
 import com.ehr.model.Consultation;
 import com.ehr.model.Doctor;
+import com.ehr.model.Insurance;
 import com.ehr.model.LoginHistory;
 import com.ehr.model.User;
 import com.ehr.model.MedicalHistory;
 import com.ehr.service.PatientService;
 import com.ehr.service.DoctorService;
+import com.ehr.service.InsurenceService;
 import com.ehr.service.LoginHistoryService;
 import com.ehr.service.UserService;
 import com.ehr.service.MedicalHistoryService;
@@ -42,6 +44,9 @@ public class PatientController
 
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private InsurenceService insurenceService;
 	
 	@Autowired
 	private MedicalHistoryService MedicalHistoryService;
@@ -122,6 +127,30 @@ public class PatientController
             return "patient/MedicalHistory";
           
         }
+        
+        
+        @GetMapping(value="/patient/insurence/{patientId}")
+        public String insurence(@PathVariable("patientId") int patientId, Model model) {
+        	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            Insurance insurance = insurenceService.getInsurenceByPatientId(patientId);
+            if(insurance != null) {
+                model.addAttribute("insurence", insurance);
+            } else {
+            	Insurance insurance2 = new Insurance();
+            	insurance2.setPatientId(patientId);
+                model.addAttribute("insurence", insurance2);
+            }
+            return "patient/Insurence";
+          
+        }
+        
+        
+        @PostMapping("/p/updateInsurence")
+    	public String updateInsurence(@Valid Insurance insurance) {
+    	    insurenceService.saveInsurence(insurance);
+    	    return "redirect:/patient/home";
+        }
+    	
         
         
         @PostMapping("/patient/updateProfile")
