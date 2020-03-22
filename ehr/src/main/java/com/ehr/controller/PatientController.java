@@ -124,7 +124,7 @@ public class PatientController
             model.addAttribute("patient", patient);
             model.addAttribute("medicalhistories", medicalhistories);
             MedicalHistory medicalhistory = new MedicalHistory();
-            model.addAttribute("medialhistory", medicalhistory);
+            model.addAttribute("medicalhistory", medicalhistory);
             return "patient/MedicalHistory";
           
         }
