@@ -38,15 +38,15 @@
 				        <tr th:each="doctor : ${doctors}">
 							<td th:text="${doctor.id}"></td>
 							<td th:text="${doctor.userId}"></td>
-							<td> 
+							<td style="display: inline-flex;border: none;"> 
 								<form th:if="!${doctor.verified}" method="POST" th:action="@{/admin/d/verify}" th:object="${doctor}">
 								    <input type="hidden" name="userId" th:value="${doctor.userId}">
-								    <button>Verify User</button>
+								    <button class="btn btn-primary">Verify User</button>
 								</form>
 								
 								<form method="POST" th:action="@{/hospital/manage/doctor}" th:object="${doctor}">
 								    <input type="hidden" name="userId" th:value="${doctor.userId}">
-								    <button>Manage Permission</button>
+								    <button class="btn btn-warning">Manage Permission</button>
 								</form>
 							<td>
 						</tr>
