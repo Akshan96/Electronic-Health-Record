@@ -112,7 +112,7 @@
 	            
 	            <div class="panel-body">
                 	<form autocomplete="off" action="#" th:action="@{/patient/addMedicalHistory}"
-		                  th:object="${consultation}" method="POST" class="form-horizontal"
+		                  th:object="${medicalhistory}" method="POST" class="form-horizontal"
 		                  role="form">
 		                <input type="hidden" name="patientId" th:value="${patient.patientId}">
 	                    
@@ -123,52 +123,52 @@
 	                     	
 	                     	<div class="form-group">
   							<label for="exampleFormControlTextarea1">Date when medical history was updated:</label>
-  							<textarea class="form-control rounded-0"  th:field="${medicalhistory.dateInsert}" id="exampleFormControlTextarea1" rows="1"></textarea>
+  								<input type="date" class="form-control" th:field="*{dateInsert}" id="dateInsert">
 							</div>
 							
 							<div class="form-group">
   							<label for="exampleFormControlTextarea1">Chief_Complaint_CC:</label>
-  							<textarea class="form-control rounded-0" th:field="${medicalhistory.CC}" id="exampleFormControlTextarea1" rows="4"></textarea>
+  							<textarea class="form-control rounded-0" th:field="*{CC}" rows="4"></textarea>
 							</div>
 							
 							<div class="form-group">
   							<label for="exampleFormControlTextarea1">History_of_present_illness_HPL:</label>
-  							<textarea class="form-control rounded-0" th:field="${medicalhistory.HPI}" id="exampleFormControlTextarea1" rows="4"></textarea>
+  							<textarea class="form-control rounded-0" th:field="*{HPI}" id="exampleFormControlTextarea1" rows="4"></textarea>
 							</div>
 							
 							<div class="form-group">
   							<label for="exampleFormControlTextarea1">Past_medical_histor_PMH:</label>
-  							<textarea class="form-control rounded-0" th:field="${medicalhistory.PMH}" id="exampleFormControlTextarea1" rows="4"></textarea>
+  							<textarea class="form-control rounded-0" th:field="*{PMH}" id="exampleFormControlTextarea1" rows="4"></textarea>
 							</div>
 							
 							<div class="form-group">
   							<label for="exampleFormControlTextarea1">Review_of_organ_system_ROS:</label>
-  							<textarea class="form-control rounded-0" th:field="${medicalhistory.ROS}" id="exampleFormControlTextarea1" rows="4"></textarea>
+  							<textarea class="form-control rounded-0" th:field="*{ROS}" id="exampleFormControlTextarea1" rows="4"></textarea>
 							</div>
 							
 							<div class="form-group">
   							<label for="exampleFormControlTextarea1">Family_diseases_FD: </label>
-  							<textarea class="form-control rounded-0" th:field="${medicalhistory.FD}" id="exampleFormControlTextarea1" rows="4"></textarea>
+  							<textarea class="form-control rounded-0" th:field="*{FD}" id="exampleFormControlTextarea1" rows="4"></textarea>
 							</div>
 							
 							<div class="form-group">
   							<label for="exampleFormControlTextarea1">Childhood_diseases_CD:</label>
-  							<textarea class="form-control rounded-0" th:field="${medicalhistory.CD}" id="exampleFormControlTextarea1" rows="4"></textarea>
+  							<textarea class="form-control rounded-0" th:field="*{CD}" id="exampleFormControlTextarea1" rows="4"></textarea>
 							</div>
 							
 							<div class="form-group">
   							<label for="exampleFormControlTextarea1">Allergeies:</label>
-  							<textarea class="form-control rounded-0" th:field="${medicalhistory.allergies}"  id="exampleFormControlTextarea1" rows="4"></textarea>
+  							<textarea class="form-control rounded-0" th:field="*{allergies}"  id="exampleFormControlTextarea1" rows="4"></textarea>
 							</div>
 							
 							<div class="form-group">
   							<label for="exampleFormControlTextarea1">Is_Diabetic: </label>
-  							<textarea class="form-control rounded-0" th:field="${medicalhistory.isDiabetic}" id="exampleFormControlTextarea1" rows="4"></textarea>
+  							<input type="checkbox" th:field="*{isDiabetic}" th:value="${isDiabetic}">
 							</div>
 							
 							<div class="form-group">
   							<label for="exampleFormControlTextarea1">PrescribeMedicine_PM: </label>
-  							<textarea class="form-control rounded-0" th:field="${medicalhistory.PM}" id="exampleFormControlTextarea1" rows="4"></textarea>
+  							<textarea class="form-control rounded-0" th:field="*{PM}" id="exampleFormControlTextarea1" rows="4"></textarea>
 							</div>
 	                     	</div>
 	                     </div>

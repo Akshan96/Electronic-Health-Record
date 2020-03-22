@@ -1,6 +1,6 @@
 package com.ehr.model;
 
-import java.util.Date;
+import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -28,8 +28,7 @@ public class MedicalHistory
     private int userId;
    
    
-	@Column(name="date_insert", insertable = false, updatable = false)
-    @Temporal(TemporalType.TIMESTAMP)
+	@Column(name="date_insert")
     private Date dateInsert;
     
     @Column(name = "Chief_Complaint_CC")

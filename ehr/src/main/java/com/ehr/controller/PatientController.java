@@ -120,11 +120,17 @@ public class PatientController
         	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
     		User user = userService.findUserByUserName(auth.getName());
             Patient patient = patientService.findById(patientId);
-            MedicalHistory medicalhistories = MedicalHistoryService.findById(patientId);
             model.addAttribute("patient", patient);
-            model.addAttribute("medicalhistories", medicalhistories);
-            MedicalHistory medicalhistory = new MedicalHistory();
-            model.addAttribute("medicalhistory", medicalhistory);
+            MedicalHistory history = MedicalHistoryService.findById(patientId);
+            if(history != null) {
+                model.addAttribute("medicalhistory", history);
+            } else {
+                MedicalHistory medicalhistory = new MedicalHistory();
+                medicalhistory.setUserId(user.getId());
+                medicalhistory.setPatientId(patientId);
+                model.addAttribute("medicalhistory", medicalhistory);
+            }
+
             return "patient/MedicalHistory";
           
         }
