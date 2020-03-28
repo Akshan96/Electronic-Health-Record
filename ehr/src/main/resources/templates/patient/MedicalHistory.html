@@ -99,6 +99,9 @@
             
         </div>
         </div>
+	  </div>
+	  
+	  <div class="col-md-8">
         
         <div class="panel-group" style="margin-top:40px">
 	        <div class="panel panel-warning">
@@ -184,58 +187,6 @@
 	            </div>
 	            </div>
 	    </div>
-	  </div>
-	  
-	  <div class="col-md-8">
-	  <div class="panel-group" style="margin-top:40px">
-        <div class="panel panel-info">
-            <div class="panel-heading">
-                <b><span> Patient Medical History Review </span></b>
-                <button class="btn btn-info dtn-sm pull-right">
-                	<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
-                </button>
-        		<div class="clearfix"></div>
-            </div>
-            
-            <div class="panel-body">
-                <div class="container-fluid">
-				    <div class="qa-message-list" id="wallmessages">
-				    
-				    				<div class="message-item" id="m16" th:each="medicalhistory : ${medicalhistories}">
-										<div class="message-inner">
-											<div class="message-head clearfix">
-												<div class="avatar pull-left"><a href=""><img class="timeline-img" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png"></a></div>
-												<div class="user-detail">
-													<h5 class="handle">Hospital Name</h5>
-													<div class="post-meta">
-														<div class="asker-meta">
-															<span class="qa-message-what"></span>
-															
-														</div>
-													</div>
-												</div>
-											</div>
-											<div class="qa-message-content">
-												<p th:utext="${medicalhistory.dateInsert}"></p>	
-												<p th:utext="${medicalhistory.CC}"></p>
-												<p th:utext="${medicalhistory.HPI}"></p>
-												<p th:utext="${medicalhistory.PMH}"></p>
-												<p th:utext="${medicalhistory.ROS}"></p>
-												<p th:utext="${medicalhistory.FD}"></p>
-												<p th:utext="${medicalhistory.CD}"></p>
-												<p th:utext="${medicalhistory.CD}"></p> 
-												<p th:utext="${medicalhistory.allergies}"></p>
-												<p th:utext="${medicalhistory.isDiabetic}"></p> 
-												<p th:utext="${medicalhistory.PM}"></p>					
-											</div>
-										</div>
-									</div>
-								</div>
-				</div>
-            </div>
-            
-        </div>
-    	</div> 
 	  </div>
 	</div>
 </div>
