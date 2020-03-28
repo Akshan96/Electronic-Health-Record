@@ -154,7 +154,13 @@ public class PatientController
         
         @PostMapping("/p/updateInsurence")
     	public String updateInsurence(@Valid Insurance insurance) {
-    	    insurenceService.saveInsurence(insurance);
+        	Insurance insurance1 = insurenceService.getInsurenceByPatientId(insurance.getPatientId());
+            if(insurance1 != null) {
+            	insurance.setInsuranceId(insurance1.getinsuranceId());
+            	insurenceService.saveInsurence(insurance);
+            } else {
+        	    insurenceService.saveInsurence(insurance);
+            }
     	    return "redirect:/patient/home";
         }
     	
@@ -168,7 +174,13 @@ public class PatientController
         
         @PostMapping("/patient/addMedicalHistory")
        	public String addMedicalHistory(@Valid MedicalHistory medicalhistory, RedirectAttributes redirectAttributes) {
-       	    MedicalHistoryService.saveMedicalHistory(medicalhistory);
+        	 MedicalHistory history = MedicalHistoryService.findById(medicalhistory.getPatientId());
+             if(history != null) {
+                medicalhistory.setMedicalhistoryId(history.getMedicalhistoryId());
+           	    MedicalHistoryService.saveMedicalHistory(medicalhistory);
+             } else {
+            	MedicalHistoryService.saveMedicalHistory(medicalhistory);
+             }
        	    int patientId = medicalhistory.getPatientId();
        	    //redirectAttributes.addAttribute(patientId);
        	    return "redirect:/patient/MedicalHistory/"+patientId;
