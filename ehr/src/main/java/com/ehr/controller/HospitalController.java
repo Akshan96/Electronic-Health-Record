@@ -22,11 +22,13 @@ import com.ehr.model.Doctor;
 import com.ehr.model.EnumPermission;
 import com.ehr.model.Hospital;
 import com.ehr.model.LoginHistory;
+import com.ehr.model.PermissionActionAudit;
 import com.ehr.model.RolePermission;
 import com.ehr.model.User;
 import com.ehr.service.DoctorService;
 import com.ehr.service.HospitalService;
 import com.ehr.service.LoginHistoryService;
+import com.ehr.service.PermissionActionAuditService;
 import com.ehr.service.RolePermissionService;
 import com.ehr.service.UserService;
 
@@ -38,6 +40,9 @@ public class HospitalController {
 	
 	@Autowired
 	private RolePermissionService rolePermissionService;
+	
+	@Autowired
+	private PermissionActionAuditService permissionActionAuditService;
 	
 	@Autowired
 	private DoctorService doctorService;
@@ -77,8 +82,17 @@ public class HospitalController {
     
     @PostMapping(value = "/save/permission")
     public String savePermission(@ModelAttribute RolePermission rolePermission,Model model) {
-    	System.out.println(rolePermission);
+    	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findUserByUserName(auth.getName());
     	rolePermissionService.savePermission(rolePermission);
+    	PermissionActionAudit actionAudit = new PermissionActionAudit();
+    	actionAudit.setModifiedBy(user.getId());
+    	actionAudit.setTimeStamp(new Date());
+    	actionAudit.setConsultation(rolePermission.isConsultation());
+    	actionAudit.setInsurence(rolePermission.isInsurence());
+    	actionAudit.setMedicalHistory(rolePermission.isMedicalHistory());
+    	actionAudit.setPatientInfo(rolePermission.isPatientInfo());
+    	permissionActionAuditService.savePermissionActionAudit(actionAudit);
         model.addAttribute("rolePermission",rolePermission);
         model.addAttribute("successMessage", "Permission Saved successfully");
     	return "hospital/managedoctor";
