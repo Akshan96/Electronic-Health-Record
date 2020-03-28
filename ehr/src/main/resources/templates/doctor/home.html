@@ -158,16 +158,18 @@
 								<td th:text="${patient.firstName}"></td>
 								<td th:text="${patient.LastName}"></td>
 								<td>
-                                    <form method="GET" th:action="@{/doctor/patientDetails/{patientId}(patientId=${patient.patientId})}" th:object="${patient}" target="_blank">
+                                    <form th:if="${isConsultation}" method="GET" th:action="@{/doctor/patientDetails/{patientId}(patientId=${patient.patientId})}" th:object="${patient}" target="_blank">
                                         <input type="hidden" name="id" th:value="${doctorId}">
                                         <button><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></button>
                                     </form>
+                                    <span th:if="${!isConsultation}" style="color:red;">Don't have permission</span>
                                 </td>
                                 <td>
-                                    <form method="GET" th:action="@{/patient/MedicalHistory/{patientId}(patientId=${patient.patientId})}" th:object="${patient}" target="_blank">
+                                    <form th:if="${isMedicalHistory}" method="GET" th:action="@{/patient/MedicalHistory/{patientId}(patientId=${patient.patientId})}" th:object="${patient}" target="_blank">
                                         <input type="hidden" name="id" th:value="${patientId}">
                                         <button><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span></button>
                                     </form>
+                                    <span th:if="${!isMedicalHistory}" style="color:red;">Don't have permission</span>
                                 </td>
 							</tr>
 				        </tbody>

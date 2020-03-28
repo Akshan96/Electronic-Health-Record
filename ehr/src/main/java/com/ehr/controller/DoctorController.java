@@ -24,11 +24,13 @@ import com.ehr.model.Consultation;
 import com.ehr.model.Doctor;
 import com.ehr.model.LoginHistory;
 import com.ehr.model.Patient;
+import com.ehr.model.RolePermission;
 import com.ehr.model.User;
 import com.ehr.service.ConsultationService;
 import com.ehr.service.DoctorService;
 import com.ehr.service.LoginHistoryService;
 import com.ehr.service.PatientService;
+import com.ehr.service.RolePermissionService;
 import com.ehr.service.UserService;
 
 @Controller
@@ -39,6 +41,9 @@ public class DoctorController {
 	
 	@Autowired
 	private PatientService patientService;
+	
+	@Autowired
+	private RolePermissionService rolePermissionService;
 	
 	@Autowired
 	private ConsultationService consultationService;
@@ -96,11 +101,26 @@ public class DoctorController {
 	@GetMapping(value="/doctor/home")
 	public ModelAndView doctorHome(HttpServletRequest request, Model model){
 		ModelAndView modelAndView = new ModelAndView();
+		boolean isMedicalHistory = false;
+		boolean isConsultation = false;
+		boolean isInsurence = false;
+		boolean isPatientDetails = false;
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		User user = userService.findUserByUserName(auth.getName());
 		LoginHistory loginHistory = new LoginHistory(new Date(),request.getRemoteAddr(),request.getHeader("User-Agent"));
 		loginHistory.setUser(user);
 		loginHistoryService.saveLoginHistory(loginHistory);
+		RolePermission permission = rolePermissionService.findByUserId(user.getId());
+		if(permission != null) {
+			isMedicalHistory = permission.isMedicalHistory();
+			isConsultation = permission.isConsultation();
+			isInsurence = permission.isInsurence();
+			isPatientDetails = permission.isPatientInfo();
+		}
+		modelAndView.addObject("isMedicalHistory", isMedicalHistory);
+		modelAndView.addObject("isConsultation", isConsultation);
+		modelAndView.addObject("isInsurence", isInsurence);
+		modelAndView.addObject("isPatientDetails", isPatientDetails);
 		modelAndView.addObject("loginHistory", loginHistory);
 		modelAndView.addObject("userName", "Welcome " + user.getUserName() + "/" + user.getName()  + " (" + user.getEmail() + ")");
 		Doctor doctor = doctorService.findByUserId(user.getId());
