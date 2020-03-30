@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "consultation")
@@ -34,6 +35,17 @@ public class Consultation {
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateInsert;
     
+    @Transient
+    private String DoctorName;
+    
+	public String getDoctorName() {
+		return DoctorName;
+	}
+
+	public void setDoctorName(String doctorName) {
+		DoctorName = doctorName;
+	}
+
 	public Consultation() {
 		super();
 		// TODO Auto-generated constructor stub

@@ -152,6 +152,10 @@ public class DoctorController {
         System.out.println("Patient Details patient ID: "+patientId);
         Patient patient = patientService.findById(patientId);
 		List<Consultation> consultations = consultationService.findAllByPatientId(patientId);
+		for (Consultation consultation : consultations) {
+			Doctor d = doctorService.findById(consultation.getDoctorId());
+			consultation.setDoctorName(d.getFirstName() +" "+ d.getLastName());
+		}
 		System.out.println("L: "+consultations);
         model.addAttribute("patient", patient);
         model.addAttribute("consultations", consultations);

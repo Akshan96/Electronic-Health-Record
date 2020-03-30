@@ -27,6 +27,10 @@ public class DoctorService {
 	     return doctorRepository.findByUserId(user_id);
 	}
 	
+	public Doctor findById(int id) {
+	     return doctorRepository.findById(id);
+	}
+	
 	@Transactional
 	public List<Doctor> getAllDoctor() {
 		return (List<Doctor>) doctorRepository.findAll();
